@@ -4,11 +4,11 @@ import math
 
 
 def conv3x3(filters, stride=1):
-    return keras.layers.Conv2d(filters, kernel_size=3, padding=1, strides=stride, use_bias=False)
+    return keras.layers.Conv2D(filters, kernel_size=3, padding='same', strides=stride, use_bias=False)
 
 
 def conv1x1(filters, stride=1):
-    return keras.layers.Conv1D(filters, kernel_size=1, padding=0, strides=stride, use_bias=False)
+    return keras.layers.Conv1D(filters, kernel_size=1, padding='valid', strides=stride, use_bias=False)
 
 
 class BasicBlock(keras.Model):
@@ -56,7 +56,7 @@ class LandmarkHead(keras.Model):
         self.input_size = input_size
         self.layer_norm = layer_normalization
         self.relu = keras.layers.ReLU()
-        self.maxpool = keras.layers.MaxPool2D(pool_size=3, strides=2, padding=1)
+        self.maxpool = keras.layers.MaxPool2D(pool_size=3, strides=2, padding='same')
         self.x2 = None
         self.inplanes = 128
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
@@ -140,11 +140,11 @@ class ResNet(keras.Model):
         super(ResNet, self).__init__()
         self.input_size = input_size
         self.inplanes = 64
-        self.conv1 = keras.layers.Conv2D(64, kernel_size=7, strides=2, padding=3, use_bias=False)
+        self.conv1 = keras.layers.Conv2D(64, kernel_size=7, strides=2, padding='same', use_bias=False)
         self.layer_norm = layer_normalization
         self.bn1 = keras.layers.BatchNormalization()
         self.relu = keras.layers.ReLU()
-        self.maxpool = keras.layers.MaxPool2D(pool_size=3, strides=2, padding=1)
+        self.maxpool = keras.layers.MaxPool2D(pool_size=3, strides=2, padding='same')
         self.x2 = None
 
         self.with_additional_layers = True

@@ -4,15 +4,15 @@ from resnet_encoder import conv3x3
 
 
 def deconv4x4(filters, stride=1):
-    return keras.layers.Conv2DTranspose(filters, kernel_size=4, strides=stride, padding=1, use_bias=False)
+    return keras.layers.Conv2DTranspose(filters, kernel_size=4, strides=stride, padding='same', use_bias=False)
 
 
-class InvBasicBloc(keras.Model):
+class InvBasicBlock(keras.Model):
     expansion = 1
 
     def __init__(self, inplanes, planes, stride=1, upsample=None, layer_normalization='batch',
                  with_spectral_norm=False):
-        super(InvBasicBloc, self).__init__()
+        super(InvBasicBlock, self).__init__()
         self.layer_normalization = layer_normalization
         if upsample is not None:
             self.conv1 = deconv4x4(planes, stride)
@@ -52,14 +52,14 @@ class LandmarkHead(keras.Model):
         self.output_size= output_size
         self.output_channels = output_channels
         self.start_layer = start_layer
-        self.lin = keras.layers.Conv2DTranspose(output_channels, kernel_size=4, strides=2, padding=1, use_bias=False)
+        self.lin = keras.layers.Conv2DTranspose(output_channels, kernel_size=4, strides=2, padding='same', use_bias=False)
 
     def _make_layer(self, block, planes, blocks, stride=1):
         upsample = None
         if stride != 1 or self.inplanes != planes * block.expansion:
             upsample = keras.Sequential([
                 keras.layers.Conv2DTranspose(planes * block.expansion,
-                                             kernel_size=4, strides=stride, padding=1, use_bias=False),
+                                             kernel_size=4, strides=stride, padding='same', use_bias=False),
                 keras.layers.BatchNormalization()
             ])
 
@@ -154,7 +154,7 @@ class InvResNet(keras.Model):
         self.output_size = output_size
         self.output_channels = output_channels
         self.fc = keras.layers.Dense(512)
-        self.conv1 = self.sn(keras.layers.Conv2DTranspose(512, kernel_size=4, strides=1, padding=0, use_bias=False))
+        self.conv1 = self.sn(keras.layers.Conv2DTranspose(512, kernel_size=4, strides=1, padding='valid', use_bias=False))
         self.add_in_tensor = None
 
         if layer_normalization:
@@ -174,7 +174,7 @@ class InvResNet(keras.Model):
             self.layer5 = self._make_layer(block, 64, layers[3], stride=2)
             self.layer6 = self._make_layer(block, 64, layers[3], stride=2)
 
-        self.lin = keras.layers.Conv2DTranspose(output_channels, kernel_size=4, strides=2, padding=1, use_bias=False)
+        self.lin = keras.layers.Conv2DTranspose(output_channels, kernel_size=4, strides=2, padding='same', use_bias=False)
 
         # study 필요
         # for m in self.modules():
@@ -215,7 +215,7 @@ class InvResNet(keras.Model):
             upsample = keras.Sequential([
                 self.sn(keras.layers.Conv2DTranspose(
                     planes * block.expansion, kernel_size=4, strides=stride,
-                    padding=1, use_bias=False
+                    padding='same', use_bias=False
                 ))
             ])
             if self.layer_normalization:
