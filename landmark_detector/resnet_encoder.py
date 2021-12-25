@@ -4,11 +4,11 @@ import math
 
 
 def conv3x3(filters, stride=1):
-    return keras.layers.Conv2d(filters, kernel_size=3, padding=1, strides=stride, use_bias=False)
+    return keras.layers.Conv2D(filters, kernel_size=3, padding='same', strides=stride, use_bias=False)
 
 
 def conv1x1(filters, stride=1):
-    return keras.layers.Conv1D(filters, kernel_size=1, padding=0, strides=stride, use_bias=False)
+    return keras.layers.Conv1D(filters, kernel_size=1, padding='valid', strides=stride, use_bias=False)
 
 
 class BasicBlock(keras.Model):
@@ -56,13 +56,13 @@ class LandmarkHead(keras.Model):
         self.input_size = input_size
         self.layer_norm = layer_normalization
         self.relu = keras.layers.ReLU()
-        self.maxpool = keras.layers.MaxPool2D(pool_size=3, strides=2, padding=1)
+        self.maxpool = keras.layers.MaxPool2D(pool_size=3, strides=2, padding='same')
         self.x2 = None
         self.inplanes = 128
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         self.avgpool = keras.layers.GlobalAvgPool2D()   # study 필요
-        self.fc = keras.layers.Dense(512 * block.expansion, num_classes)
+        self.fc = keras.layers.Dense(num_classes)
 
         for m in self.layers:
             if isinstance(m, keras.layers.Conv2D):
@@ -140,11 +140,11 @@ class ResNet(keras.Model):
         super(ResNet, self).__init__()
         self.input_size = input_size
         self.inplanes = 64
-        self.conv1 = keras.layers.Conv2D(64, kernel_size=7, strides=2, padding=3, use_bias=False)
+        self.conv1 = keras.layers.Conv2D(64, kernel_size=7, strides=2, padding='same', use_bias=False)
         self.layer_norm = layer_normalization
         self.bn1 = keras.layers.BatchNormalization()
         self.relu = keras.layers.ReLU()
-        self.maxpool = keras.layers.MaxPool2D(pool_size=3, strides=2, padding=1)
+        self.maxpool = keras.layers.MaxPool2D(pool_size=3, strides=2, padding='same')
         self.x2 = None
 
         self.with_additional_layers = True
@@ -163,7 +163,7 @@ class ResNet(keras.Model):
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         self.avgpool = keras.layers.GlobalAvgPool2D()   # study 필요
-        self.fc = keras.layers.Dense(512 * block.expansion, num_classes)
+        self.fc = keras.layers.Dense(num_classes)
 
         # study 필요
         # for m in self.modules():
@@ -218,7 +218,7 @@ class DiscriminatorHead(keras.Model):
         self.t2 = conv(128)
         self.t3 = conv(256)
         self.t4 = conv(512)
-        self.lin = keras.layers.Dense(512 * 1, 1)
+        self.lin = keras.layers.Dense(1)
         self.avgpool = keras.layers.GlobalAvgPool2D()
         self.sigmoid = keras.layers.Activation('sigmoid')
 
