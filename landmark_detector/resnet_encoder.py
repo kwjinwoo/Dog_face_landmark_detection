@@ -209,3 +209,31 @@ class ResNet(keras.Model):
 
         return x
 
+
+class DiscriminatorHead(keras.Model):
+    def __init__(self, **params):
+        super(DiscriminatorHead, self).__init__()
+        conv = conv3x3
+        self.t1 = conv(64, 64)
+        self.t2 = conv(128, 128)
+        self.t3 = conv(256, 256)
+        self.t4 = conv(512, 512)
+        self.lin = keras.layers.Dense(512 * 1, 1)
+        self.avgpool = keras.layers.GlobalAvgPool2D()
+        self.sigmoid = keras.layers.Activation('sigmoid')
+
+    def call(self, Q, qx1):
+        x = qx1
+
+        x = self.t1(x)
+        x = self.t2(x)
+        x = self.t3(x)
+        x = self.t4(x)
+        x = self.avgpool(x)
+
+        return self.sigmoid(self.lin(x))
+
+
+def resnet18(**kwargs):
+    model = ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
+    return model
