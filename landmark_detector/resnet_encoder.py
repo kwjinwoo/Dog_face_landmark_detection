@@ -214,14 +214,15 @@ class DiscriminatorHead(keras.Model):
     def __init__(self, **params):
         super(DiscriminatorHead, self).__init__()
         conv = conv3x3
-        self.t1 = conv(64, 64)
-        self.t2 = conv(128, 128)
-        self.t3 = conv(256, 256)
-        self.t4 = conv(512, 512)
+        self.t1 = conv(64)
+        self.t2 = conv(128)
+        self.t3 = conv(256)
+        self.t4 = conv(512)
         self.lin = keras.layers.Dense(512 * 1, 1)
         self.avgpool = keras.layers.GlobalAvgPool2D()
         self.sigmoid = keras.layers.Activation('sigmoid')
 
+    # study 필요
     def call(self, Q, qx1):
         x = qx1
 
