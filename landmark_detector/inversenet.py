@@ -153,7 +153,7 @@ class InvResNet(keras.Model):
         self.inplanes = 512
         self.output_size = output_size
         self.output_channels = output_channels
-        self.fc = keras.layers.Dense(input_dims, 512)
+        self.fc = keras.layers.Dense(512)
         self.conv1 = self.sn(keras.layers.Conv2DTranspose(512, kernel_size=4, strides=1, padding=0, use_bias=False))
         self.add_in_tensor = None
 
@@ -258,4 +258,3 @@ class InvResNet(keras.Model):
         x = self.tanh(x)
 
         return x
-    

@@ -62,7 +62,7 @@ class LandmarkHead(keras.Model):
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         self.avgpool = keras.layers.GlobalAvgPool2D()   # study 필요
-        self.fc = keras.layers.Dense(512 * block.expansion, num_classes)
+        self.fc = keras.layers.Dense(num_classes)
 
         for m in self.layers:
             if isinstance(m, keras.layers.Conv2D):
@@ -163,7 +163,7 @@ class ResNet(keras.Model):
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         self.avgpool = keras.layers.GlobalAvgPool2D()   # study 필요
-        self.fc = keras.layers.Dense(512 * block.expansion, num_classes)
+        self.fc = keras.layers.Dense(num_classes)
 
         # study 필요
         # for m in self.modules():
@@ -218,7 +218,7 @@ class DiscriminatorHead(keras.Model):
         self.t2 = conv(128)
         self.t3 = conv(256)
         self.t4 = conv(512)
-        self.lin = keras.layers.Dense(512 * 1, 1)
+        self.lin = keras.layers.Dense(1)
         self.avgpool = keras.layers.GlobalAvgPool2D()
         self.sigmoid = keras.layers.Activation('sigmoid')
 
