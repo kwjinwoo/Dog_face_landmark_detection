@@ -49,4 +49,8 @@ class AAE(keras.Model):
         return outputs[:, :3]
 
 
+# 작동 test
 aae = AAE(256)
+
+temp = tf.random.normal((1, 256, 256, 3))
+print(aae(temp))
