@@ -14,3 +14,14 @@ def loss_recon(x, x_recon):
 def loss_struct(x, x_recon):
     cs = tf.image.ssim(x, x_recon, 1)  # study 필요
     loss = 1 - cs   # ???
+    return tf.reduce_mean(loss)
+
+
+def loss_enc(x):
+    None
+
+
+def loss_adv(x):
+    None
+
+
