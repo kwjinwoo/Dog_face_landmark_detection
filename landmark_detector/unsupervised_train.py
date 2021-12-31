@@ -25,4 +25,3 @@ def run_epoch(x, aee):
     with tf.GradientTape() as tape:
         z_sample = aee(x)
 
-        
