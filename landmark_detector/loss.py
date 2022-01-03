@@ -35,7 +35,10 @@ def loss_D_Z(D_real, D_fake):
     loss = tf.math.log(D_real + eps) + tf.math.log(1 - D_fake + eps)
     return -tf.reduce_mean(loss)
                            
-    
+
+def loss_E(D_fake):
+    loss = tf.math.log(D_fake + eps)
+    return -tf.reduce_mean(loss)
 # def loss_G_rec(D, x_recon):
 #     err_G_random = D(x_recon)
 #     loss = tf.math.log(err_G_random + eps)

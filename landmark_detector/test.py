@@ -1,9 +1,10 @@
+import loss
+import AAE
 import tensorflow as tf
+from tensorflow import keras
+import model_utils
 
 
-a = [[1, 2, 3],
-     [1, 2, 3]]
-b = [[[2, 2, 2],
-     [2, 2, 2]]]
-b = tf.Variable(b)
-print(b[:])
+aae = AAE.AAE(256)
+_ = model_utils.builder(aae, 256)
+print(aae.Q.trainable_variables)

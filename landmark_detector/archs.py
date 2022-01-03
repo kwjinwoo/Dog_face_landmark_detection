@@ -26,7 +26,7 @@ class Discriminator(keras.Model):
         super(Discriminator, self).__init__()
         ndf = 32
         nc = 3
-        self.main = [
+        self.model = [
             keras.layers.Conv2D(ndf, 4, strides=2, padding='same', use_bias=False),
             keras.layers.LeakyReLU(0.2),
             keras.layers.Conv2D(ndf * 2, 4, strides=2, padding='same', use_bias=False),
@@ -42,7 +42,8 @@ class Discriminator(keras.Model):
             keras.layers.GlobalAvgPool2D(),
             keras.layers.Activation('sigmoid')
         ]
+        self.model = keras.Sequential(self.model)
 
-    def call(self, inputs):
-        output = self.main(inputs)
-        return tf.squeeze(output, 1)
+    def call(self, x):
+        x = self.model(x)
+        return tf.squeeze(x, 1)
