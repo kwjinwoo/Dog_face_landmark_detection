@@ -20,6 +20,7 @@ class AAE(keras.Model):
         self.Q = resnet_encoder.resnet18(num_classes=self.z_dim,
                                          input_size=input_size,
                                          input_channels=input_channels,
+
                                          layer_normalization='batch')
 
         decoder_class = inversenet.InvResNet
@@ -49,4 +50,9 @@ class AAE(keras.Model):
         return outputs[:, :3]
 
 
-aae = AAE(256)
+# 작동 test
+# aae = AAE(256)
+
+# temp = tf.random.normal((1, 256, 256, 3))
+# print(temp)
+# print(aae.Q(temp))
