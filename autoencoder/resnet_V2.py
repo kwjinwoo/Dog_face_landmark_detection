@@ -13,10 +13,14 @@ class ResiduaBlock(keras.Model):
             keras.layers.Conv2D(out_channels, kernel_size, stride, padding='same'),
             keras.layers.BatchNormalization(),
             keras.layers.LeakyReLU()
-        ])
+        ], name='ResidualBlock')
 
     def call(self, x):
         return x + self.residual_block(x)
+
+    def build_graph(self):
+        x = keras.layers.Input(shape=(256, 256, 3))
+        return keras.models.Model(inputs=[x], outputs=self.call(x))
 
 
 class ResNetEncoder(keras.Model):
@@ -40,7 +44,7 @@ class ResNetEncoder(keras.Model):
             keras.layers.Conv2D(8, 3, 1, padding='same'),
             keras.layers.BatchNormalization(),
             keras.layers.LeakyReLU(0.2)
-        ])
+        ], name='en_input_conv')
 
         for i in range(n_levels):
             n_filters_1 = 2 ** (i + 3)
@@ -48,7 +52,8 @@ class ResNetEncoder(keras.Model):
             ks = 2 ** (n_levels - i)
 
             self.res_blk_list.append(
-                keras.Sequential([ResiduaBlock(n_filters_1, n_filters_1) for _ in range(n_ResidualBlock)])
+                keras.Sequential([ResiduaBlock(n_filters_1, n_filters_1) for _ in range(n_ResidualBlock)]
+                                 , name='res_block_' + str(i))
             )
 
             self.conv_list.append(
@@ -56,7 +61,7 @@ class ResNetEncoder(keras.Model):
                     keras.layers.Conv2D(n_filters_2, 2, strides=2, padding='valid'),
                     keras.layers.BatchNormalization(),
                     keras.layers.LeakyReLU(0.2)
-                ])
+                ], name='conv_block_' + str(i))
             )
 
             if bUseMultiResSkips:
@@ -66,7 +71,7 @@ class ResNetEncoder(keras.Model):
                                             ks, ks, padding='valid'),
                         keras.layers.BatchNormalization(),
                         keras.layers.LeakyReLU(0.2)
-                    ])
+                    ], name='multi_skip_block_' + str(i))
                 )
         self.output_conv = keras.layers.Conv2D(z_dim, 3, 1, padding='same')
 
@@ -87,6 +92,10 @@ class ResNetEncoder(keras.Model):
         x = self.output_conv(x)
 
         return x
+
+    def build_graph(self):
+        x = keras.layers.Input(shape=(256, 256, 3))
+        return keras.models.Model(inputs=[x], outputs=self.call(x))
 
 
 class ResNetDecoder(keras.Model):
@@ -110,7 +119,7 @@ class ResNetDecoder(keras.Model):
             keras.layers.Conv2D(self.max_filters, 3, 1, padding='same'),
             keras.layers.BatchNormalization(),
             keras.layers.LeakyReLU(0.2)
-        ])
+        ], name='de_input_conv')
 
         for i in range(n_levels):
             n_filters_0 = 2 ** (self.n_levels - i + 3)
@@ -119,7 +128,7 @@ class ResNetDecoder(keras.Model):
 
             self.res_blk_list.append(
                 keras.Sequential([ResiduaBlock(n_filters_1, n_filters_1)
-                                  for _ in range(n_ResidualBlock)])
+                                  for _ in range(n_ResidualBlock)], name='de_res_block_' + str(i))
             )
 
             self.conv_list.append(
@@ -127,7 +136,7 @@ class ResNetDecoder(keras.Model):
                     keras.layers.Conv2DTranspose(n_filters_1, 2, 2, padding='valid'),
                     keras.layers.BatchNormalization(),
                     keras.layers.LeakyReLU(0.2)
-                ])
+                ], name='de_conv_block_' + str(i))
             )
 
             if bUseMultiResSkips:
@@ -137,7 +146,7 @@ class ResNetDecoder(keras.Model):
                                                      ks, ks, padding='valid'),
                         keras.layers.BatchNormalization(),
                         keras.layers.LeakyReLU(0.2)
-                    ])
+                    ], name='de_multi_skip_block_' + str(i))
                 )
         self.output_conv = keras.layers.Conv2D(output_channels, 3, 1, padding='same')
 
@@ -152,6 +161,10 @@ class ResNetDecoder(keras.Model):
 
         z = self.output_conv(z)
         return z
+
+    def build_graph(self):
+        x = keras.layers.Input(shape=(16, 16, 256))
+        return keras.models.Model(inputs=[x], outputs=self.call(x))
 
 
 class ResNetAE(keras.Model):
@@ -177,20 +190,20 @@ class ResNetAE(keras.Model):
 
     def encode(self, x):
         h = self.encoder(x)
-        h = tf.reshape(h, shape=(-1, self.z_dim * self.img_latent_dim, self.img_latent_dim))
+        h = keras.layers.Flatten()(h)
+        # h = tf.reshape(h, shape=(-1, self.z_dim * self.img_latent_dim, self.img_latent_dim))
         return self.fc1(h)
 
     def decode(self, z):
         h = self.fc2(z)
-        h = tf.reshape(h, shape=(-1, self.z_dim, self.img_latent_dim, self.img_latent_dim))
+        h = keras.layers.Reshape((self.img_latent_dim, self.img_latent_dim, self.z_dim))(h)
+        # h = tf.reshape(h, shape=(-1, self.z_dim, self.img_latent_dim, self.img_latent_dim))
         h = self.decoder(h)
-        return keras.layers.Activation('sigmoid')(h)
+        return keras.layers.Activation('sigmoid', name='sigmoid')(h)
 
     def call(self, x):
         return self.decode(self.encode(x))
 
-
-ae = ResNetAE()
-temp = tf.random.normal(shape=(1, 256, 256, 3))
-out = ae(temp)
-print(out.shape)
+    def build_graph(self):
+        x = keras.layers.Input(shape=(256, 256, 3))
+        return keras.models.Model(inputs=[x], outputs=self.call(x))
