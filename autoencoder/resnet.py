@@ -94,7 +94,7 @@ class Encoder(keras.Model):
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         self.avgpool = keras.layers.AvgPool2D(pool_size=7, strides=1)
-        self.fc = keras.layers.Dense(1000)
+        self.fc = keras.layers.Dense(48)
 
     def _make_layer(self, block, planes, blocks, stride=1):
         downsample = None
@@ -198,4 +198,8 @@ class Autoencoder(keras.Model):
         x = self.encoder(x)
         x = self.decoder(x)
         return x
-    
+
+
+ae = Autoencoder()
+temp = tf.random.normal(shape=(1, 224, 224, 3))
+ae(temp)
