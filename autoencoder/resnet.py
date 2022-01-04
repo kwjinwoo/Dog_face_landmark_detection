@@ -4,6 +4,7 @@ from tensorflow import keras
 
 zsize = 48
 
+
 def conv3x3(in_planes, out_planes, stride=1):
     return keras.layers.Conv2D(out_planes, kernel_size=3, strides=stride,
                                padding='same', use_bias=False)
@@ -129,6 +130,9 @@ class Encoder(keras.Model):
 
         return x
 
+    def build_graph(self):
+        x = keras.layers.Input(shape=(224, 224, 3))
+        return keras.models.Model(inputs=[x], outputs=self.call(x))
 
 # class Binary(Function)
 
@@ -187,6 +191,10 @@ class Decoder(keras.Model):
 
         return x
 
+    def build_graph(self):
+        x = keras.layers.Input(shape=(47))
+        return keras.models.Model(inputs=[x], outputs=self.call(x))
+
 
 class Autoencoder(keras.Model):
     def __init__(self):
@@ -198,6 +206,10 @@ class Autoencoder(keras.Model):
         x = self.encoder(x)
         x = self.decoder(x)
         return x
+
+    def build_graph(self):
+        x = keras.layers.Input(shape=(224, 224, 3))
+        return keras.models.Model(inputs=[x], outputs=self.call(x))
 
 
 ae = Autoencoder()
