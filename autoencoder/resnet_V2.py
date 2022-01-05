@@ -182,8 +182,12 @@ class ResNetAE(keras.Model):
         self.z_dim = z_dim
         self.img_latent_dim = input_shape[0] // (2 ** n_levels)
 
-        self.encoder = ResNetEncoder(n_ResidualBlock, n_levels, image_channels, z_dim, bUseMultiResSkips)
-        self.decoder = ResNetDecoder(n_ResidualBlock, n_levels, image_channels, z_dim, bUseMultiResSkips)
+        self.encoder = ResNetEncoder(n_ResidualBlock=n_ResidualBlock,
+                                     n_levels=n_levels, input_ch=image_channels,
+                                     z_dim=z_dim, bUseMultiResSkips=bUseMultiResSkips)
+        self.decoder = ResNetDecoder(n_ResidualBlock=n_ResidualBlock,
+                                     n_levels=n_levels, output_channels=image_channels,
+                                     z_dim=z_dim, bUseMultiResSkips=bUseMultiResSkips)
 
         self.fc1 = keras.layers.Dense(bottleneck_dim)
         self.fc2 = keras.layers.Dense(self.z_dim * self.img_latent_dim * self.img_latent_dim)
@@ -207,3 +211,4 @@ class ResNetAE(keras.Model):
     def build_graph(self):
         x = keras.layers.Input(shape=(256, 256, 3))
         return keras.models.Model(inputs=[x], outputs=self.call(x))
+
