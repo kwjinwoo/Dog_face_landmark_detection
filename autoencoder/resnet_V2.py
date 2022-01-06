@@ -211,4 +211,3 @@ class ResNetAE(keras.Model):
     def build_graph(self):
         x = keras.layers.Input(shape=(256, 256, 3))
         return keras.models.Model(inputs=[x], outputs=self.call(x))
-
