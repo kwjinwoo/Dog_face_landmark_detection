@@ -1,9 +1,11 @@
 import tensorflow as tf
 import glob
 from tqdm import tqdm
-
+import random
 
 images_path = glob.glob('./data/images/*/*.jpg')
+random.seed(42)
+random.shuffle(images_path)
 print('total images: ', len(images_path))
 
 in_file = 5000
