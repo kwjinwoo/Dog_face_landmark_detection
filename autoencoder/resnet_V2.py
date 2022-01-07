@@ -183,7 +183,8 @@ class ResNetAE(keras.Model):
                 n_levels=4,
                 z_dim=128,
                 bottleneck_dim=128,
-                bUseMultiResSkips=True):
+                bUseMultiResSkips=True,
+                drop_out=None):
 
         super(ResNetAE, self).__init__()
 
@@ -193,7 +194,7 @@ class ResNetAE(keras.Model):
 
         self.encoder = ResNetEncoder(n_ResidualBlock=n_ResidualBlock,
                                      n_levels=n_levels, input_ch=image_channels,
-                                     z_dim=z_dim, bUseMultiResSkips=bUseMultiResSkips)
+                                     z_dim=z_dim, bUseMultiResSkips=bUseMultiResSkips, drop_out=drop_out)
         self.decoder = ResNetDecoder(n_ResidualBlock=n_ResidualBlock,
                                      n_levels=n_levels, output_channels=image_channels,
                                      z_dim=z_dim, bUseMultiResSkips=bUseMultiResSkips)
