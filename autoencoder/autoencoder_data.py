@@ -3,7 +3,9 @@ import glob
 from tqdm import tqdm
 import random
 
-images_path = glob.glob('./data/images/*/*.jpg')
+
+images_path = sorted(glob.glob('./data/images/*/*.jpg'))
+
 random.seed(42)
 random.shuffle(images_path)
 print('total images: ', len(images_path))
