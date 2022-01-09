@@ -147,3 +147,5 @@ dmypy.json
 cython_debug/
 
 DOG/
+
+data/
