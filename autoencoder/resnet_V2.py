@@ -29,7 +29,8 @@ class ResNetEncoder(keras.Model):
                  n_levels=4,
                  input_ch=3,
                  z_dim=10,
-                 bUseMultiResSkips=True):
+                 bUseMultiResSkips=True,
+                 drop_out=None):
         super(ResNetEncoder, self).__init__()
 
         self.max_filters = 2 ** (n_levels + 3)
@@ -39,6 +40,11 @@ class ResNetEncoder(keras.Model):
         self.conv_list = []
         self.res_blk_list = []
         self.multi_res_skip_list = []
+
+        if drop_out:
+            self.dropout = keras.layers.Droout(drop_out)
+        else:
+            self.dropout = None
 
         self.input_conv = keras.Sequential([
             keras.layers.Conv2D(8, 3, 1, padding='same'),
@@ -76,6 +82,9 @@ class ResNetEncoder(keras.Model):
         self.output_conv = keras.layers.Conv2D(z_dim, 3, 1, padding='same')
 
     def call(self, x):
+        if self.dropout:
+            x = self.dropout(x)
+
         x = self.input_conv(x)
 
         skips = []
@@ -174,7 +183,8 @@ class ResNetAE(keras.Model):
                 n_levels=4,
                 z_dim=128,
                 bottleneck_dim=128,
-                bUseMultiResSkips=True):
+                bUseMultiResSkips=True,
+                drop_out=None):
 
         super(ResNetAE, self).__init__()
 
@@ -184,7 +194,7 @@ class ResNetAE(keras.Model):
 
         self.encoder = ResNetEncoder(n_ResidualBlock=n_ResidualBlock,
                                      n_levels=n_levels, input_ch=image_channels,
-                                     z_dim=z_dim, bUseMultiResSkips=bUseMultiResSkips)
+                                     z_dim=z_dim, bUseMultiResSkips=bUseMultiResSkips, drop_out=drop_out)
         self.decoder = ResNetDecoder(n_ResidualBlock=n_ResidualBlock,
                                      n_levels=n_levels, output_channels=image_channels,
                                      z_dim=z_dim, bUseMultiResSkips=bUseMultiResSkips)
