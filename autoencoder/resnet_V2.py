@@ -42,7 +42,7 @@ class ResNetEncoder(keras.Model):
         self.multi_res_skip_list = []
 
         if drop_out:
-            self.dropout = keras.layers.Droout(drop_out)
+            self.dropout = keras.layers.Dropout(drop_out)
         else:
             self.dropout = None
 
