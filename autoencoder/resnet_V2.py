@@ -9,10 +9,10 @@ class ResiduaBlock(keras.Model):
         self.residual_block = keras.Sequential([
             keras.layers.Conv2D(out_channels, kernel_size, stride, padding='same'),
             keras.layers.BatchNormalization(),
-            keras.layers.LeakyReLU(),
+            keras.layers.LeakyReLU(0.2),
             keras.layers.Conv2D(out_channels, kernel_size, stride, padding='same'),
             keras.layers.BatchNormalization(),
-            keras.layers.LeakyReLU()
+            keras.layers.LeakyReLU(0.2)
         ], name='ResidualBlock')
 
     def call(self, x):
@@ -42,7 +42,7 @@ class ResNetEncoder(keras.Model):
         self.multi_res_skip_list = []
 
         if drop_out:
-            self.dropout = keras.layers.Droout(drop_out)
+            self.dropout = keras.layers.Dropout(drop_out)
         else:
             self.dropout = None
 
@@ -64,7 +64,7 @@ class ResNetEncoder(keras.Model):
 
             self.conv_list.append(
                 keras.Sequential([
-                    keras.layers.Conv2D(n_filters_2, 2, strides=2, padding='valid'),
+                    keras.layers.Conv2D(n_filters_2, 2, strides=2, padding='same'),
                     keras.layers.BatchNormalization(),
                     keras.layers.LeakyReLU(0.2)
                 ], name='conv_block_' + str(i))
@@ -74,7 +74,7 @@ class ResNetEncoder(keras.Model):
                 self.multi_res_skip_list.append(
                     keras.Sequential([
                         keras.layers.Conv2D(self.max_filters,
-                                            ks, ks, padding='valid'),
+                                            ks, ks, padding='same'),
                         keras.layers.BatchNormalization(),
                         keras.layers.LeakyReLU(0.2)
                     ], name='multi_skip_block_' + str(i))
@@ -142,7 +142,7 @@ class ResNetDecoder(keras.Model):
 
             self.conv_list.append(
                 keras.Sequential([
-                    keras.layers.Conv2DTranspose(n_filters_1, 2, 2, padding='valid'),
+                    keras.layers.Conv2DTranspose(n_filters_1, 2, 2, padding='same'),
                     keras.layers.BatchNormalization(),
                     keras.layers.LeakyReLU(0.2)
                 ], name='de_conv_block_' + str(i))
@@ -152,7 +152,7 @@ class ResNetDecoder(keras.Model):
                 self.multi_res_skip_list.append(
                     keras.Sequential([
                         keras.layers.Conv2DTranspose(n_filters_1,
-                                                     ks, ks, padding='valid'),
+                                                     ks, ks, padding='same'),
                         keras.layers.BatchNormalization(),
                         keras.layers.LeakyReLU(0.2)
                     ], name='de_multi_skip_block_' + str(i))
