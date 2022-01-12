@@ -69,13 +69,16 @@ with tf.io.TFRecordWriter(save_path) as f:
         image_class = encoder.transform([[image_class]])[0]
         image_class = image_class.astype('int64')
 
-        # image
-        image_file = open('./data/' + path, 'rb').read()
-        image_width = int(image['@width'])
-        image_height = int(image['@height'])
-
-        image_box = image['box']
+        # 깨진 파일 거르기 + 객체 2개인거
         try:
+            # image
+            image_file = tf.io.decode_image(tf.io.read_file('./data/' + path)).numpy()
+            image_file = tf.image.resize(image_file, size=[256, 256])
+            image_file = tf.io.encode_jpeg(tf.cast(image_file, dtype=tf.uint8)).numpy()
+            image_width = int(image['@width'])
+            image_height = int(image['@height'])
+
+            image_box = image['box']
             top = int(image_box['@top'])
             left = int(image_box['@left'])
             width = int(image_box['@width'])

@@ -62,19 +62,19 @@ def get_cu_dataset(train_type='landmark', data_path='./data/cu_dataset.tfrecord'
     # landmark 만 label 되어있는 데이터 셋
     if train_type == 'landmark':
         ds = tf.data.TFRecordDataset(data_path).map(landmark_tfrecord_reader)
-        ds = ds.map(image_resize).map(image_scaling).batch(batch_size)
+        ds = ds.map(image_scaling).batch(batch_size)
         ds = ds.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
 
     # class와 함께 label 되어있는 데이터셋. class, landmark 순서
     elif train_type == 'class':
         ds = tf.data.TFRecordDataset(data_path).map(class_landmark_tfrecord_reader)
-        ds = ds.map(image_resize).map(image_scaling).batch(batch_size)
+        ds = ds.map(image_scaling).batch(batch_size)
         ds = ds.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
 
     # bb-box, class, landmark 모두 label. class, bb-box, landmark 순서
     else:
         ds = tf.data.TFRecordDataset(data_path).map(full_tfrecord_reader)
-        ds = ds.map(image_resize).map(image_scaling).batch(batch_size)
+        ds = ds.map(image_scaling).batch(batch_size)
         ds = ds.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
 
     return ds
