@@ -24,15 +24,9 @@ def image_scaling(x):
 
 def get_autoencoder_dataset(data_path='./data/autoencoder/*.tfrec', batch_size=32):
     data_path = glob.glob(data_path)
-    train_path = data_path[:-1]
-    test_path = data_path[-1]
 
-    train_dataset = tf.data.TFRecordDataset(train_path).map(tfrecord_reader)
+    train_dataset = tf.data.TFRecordDataset(data_path).map(tfrecord_reader)
     train_dataset = train_dataset.map(image_resize).map(image_scaling).batch(batch_size)
     train_dataset = train_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
 
-    test_dataset = tf.data.TFRecordDataset(test_path).map(tfrecord_reader)
-    test_dataset = test_dataset.map(image_resize).map(image_scaling).batch(batch_size)
-    test_dataset = test_dataset.prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
-
-    return train_dataset, test_dataset
+    return train_dataset
