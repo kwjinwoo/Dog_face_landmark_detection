@@ -152,3 +152,4 @@ data/
 
 trained_ckpt/
 pre_trained/
+/mobilenet/img/
