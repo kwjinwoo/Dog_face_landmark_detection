@@ -7,30 +7,40 @@ from tensorflow import keras
 class DecoderBlock(keras.Model):
     def __init__(self, in_channels, out_channels, stride, expansion):
         super(DecoderBlock, self).__init__()
+        self.in_channels = in_channels
         self.filters = in_channels * expansion
         self.out_channels = out_channels
-        self.relu = keras.layers.ReLU(6.)
+        self.relu = keras.layers.LeakyReLU(0.2)
         self.stride = stride
         self.conv1 = keras.layers.Conv2D(self.filters, kernel_size=1, padding='same', use_bias=False)
         self.bn1 = keras.layers.BatchNormalization()
         self.deconv = keras.layers.Conv2DTranspose(self.filters, kernel_size=4,
                                                    padding='same', strides=self.stride,
                                                    use_bias=False)
+        self.depth_conv = keras.layers.DepthwiseConv2D(kernel_size=3, padding='same', strides=self.stride,
+                                                       use_bias=False)
         self.bn2 = keras.layers.BatchNormalization()
         self.conv2 = keras.layers.Conv2D(out_channels, kernel_size=1, padding='same', use_bias=False)
         self.bn3 = keras.layers.BatchNormalization()
 
     def call(self, x):
+        residual = x
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)
 
-        x = self.deconv(x)
+        if self.stride == 1:
+            x = self.depth_conv(x)
+        else:
+            x = self.deconv(x)
         x = self.bn2(x)
         x = self.relu(x)
 
         x = self.conv2(x)
         x = self.bn3(x)
+
+        if self.stride == 1 and self.in_channels == self.out_channels:
+            x += residual
 
         return x
 
@@ -41,7 +51,7 @@ class InverseMobileNetV2(keras.Model):
         super(InverseMobileNetV2, self).__init__()
         self.z_dim = z_dim
         self.fc = keras.layers.Dense(8 * 8 * 1280)
-        self.relu = keras.layers.ReLU(6.)
+        self.relu = keras.layers.LeakyReLU(0.2)
         self.deconv1 = keras.layers.Conv2DTranspose(320, 1, use_bias=False)
         self.bn1 = keras.layers.BatchNormalization()
         self.inv_res_block = self._make_blocks()
@@ -103,10 +113,13 @@ class MobileNetAE(keras.Model):
 
     def _make_encoder(self):
         back_input = keras.layers.Input(shape=self.input_size)
-        backbone = keras.applications.MobileNetV2(input_shape=self.input_size, alpha=1.0, include_top=False)
+        backbone = keras.applications.MobileNetV2(input_shape=self.input_size, alpha=1.0, include_top=False, weights=None)
         backbone = backbone(back_input)
         encoder = keras.layers.Flatten()(backbone)
         encoder = self.fc(encoder)
         encoder = keras.models.Model(back_input, encoder)
         return encoder
 
+    def build_graph(self):
+        x = keras.layers.Input(shape=(256, 256, 3))
+        return keras.models.Model(inputs=[x], outputs=self.call(x))
