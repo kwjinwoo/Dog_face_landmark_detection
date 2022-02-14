@@ -2,6 +2,8 @@ import tensorflow as tf
 from tensorflow import keras
 
 
+# Decoder block
+# conv --> convtranspose --> conv
 class DecoderBlock(keras.Model):
     def __init__(self, in_channels, out_channels, stride, expansion):
         super(DecoderBlock, self).__init__()
@@ -23,11 +25,6 @@ class DecoderBlock(keras.Model):
         x = self.bn1(x)
         x = self.relu(x)
 
-        # if self.stride == 2:
-        #     print(x.shape)
-        #     x = keras.layers.ZeroPadding2D(padding=((1, 0), (1, 0)))(x)
-        #     print(x.shape)
-
         x = self.deconv(x)
         x = self.bn2(x)
         x = self.relu(x)
@@ -38,6 +35,7 @@ class DecoderBlock(keras.Model):
         return x
 
 
+# Decoder
 class InverseMobileNetV2(keras.Model):
     def __init__(self, z_dim):
         super(InverseMobileNetV2, self).__init__()
@@ -59,7 +57,7 @@ class InverseMobileNetV2(keras.Model):
         out = self.inv_res_block(out)
         out = self.deconv2(out)
         out = self.bn2(out)
-        out = self.relu(out)
+        out = keras.layers.Activation('sigmoid')(out)
         return out
 
     def _make_blocks(self):
@@ -88,6 +86,7 @@ class InverseMobileNetV2(keras.Model):
         return blocks
 
 
+# Autoencoder
 class MobileNetAE(keras.Model):
     def __init__(self, input_size, z_dim):
         super(MobileNetAE, self).__init__()
@@ -111,10 +110,3 @@ class MobileNetAE(keras.Model):
         encoder = keras.models.Model(back_input, encoder)
         return encoder
 
-
-
-temp = MobileNetAE((256, 256, 3), 99)
-input_temp = tf.random.normal(shape=(1, 256, 256, 3))
-
-print(temp(input_temp).shape)
-# temp(input_temp)
