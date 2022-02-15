@@ -14,7 +14,7 @@ class DecoderBlock(keras.Model):
         self.stride = stride
         self.conv1 = keras.layers.Conv2D(self.filters, kernel_size=1, padding='same', use_bias=False)
         self.bn1 = keras.layers.BatchNormalization()
-        self.deconv = keras.layers.Conv2DTranspose(self.filters, kernel_size=4,
+        self.deconv = keras.layers.Conv2DTranspose(self.filters, kernel_size=3,
                                                    padding='same', strides=self.stride,
                                                    use_bias=False)
         self.depth_conv = keras.layers.DepthwiseConv2D(kernel_size=3, padding='same', strides=self.stride,
@@ -51,18 +51,18 @@ class InverseMobileNetV2(keras.Model):
         super(InverseMobileNetV2, self).__init__()
         self.z_dim = z_dim
         self.latent_dim = input_size // 2 ** 5
-        self.fc = keras.layers.Dense(self.latent_dim * self.latent_dim * 1280)
+        # self.fc = keras.layers.Dense(self.latent_dim * self.latent_dim * 1280)
         self.relu = keras.layers.LeakyReLU(0.2)
-        self.deconv1 = keras.layers.Conv2DTranspose(320, 1, use_bias=False)
+        self.deconv1 = keras.layers.Conv2D(320, 1, use_bias=False)
         self.bn1 = keras.layers.BatchNormalization()
         self.inv_res_block = self._make_blocks()
-        self.deconv2 = keras.layers.Conv2DTranspose(3, 4, padding='same', strides=2, use_bias=False)
+        self.deconv2 = keras.layers.Conv2DTranspose(3, 3, padding='same', strides=2, use_bias=False)
         self.bn2 = keras.layers.BatchNormalization()
 
     def call(self, x):
-        out = self.fc(x)
-        out = keras.layers.Reshape((8, 8, 1280))(out)
-        out = self.deconv1(out)
+        # out = self.fc(x)
+        # out = keras.layers.Reshape((self.latent_dim, self.latent_dim, 1280))(out)
+        out = self.deconv1(x)
         out = self.bn1(out)
         out = self.relu(out)
         out = self.inv_res_block(out)
@@ -103,9 +103,9 @@ class MobileNetAE(keras.Model):
         super(MobileNetAE, self).__init__()
         self.input_size = input_size
         self.z_dim = z_dim
-        self.fc = keras.layers.Dense(z_dim)
+        # self.fc = keras.layers.Dense(z_dim)
         self.encoder = self._make_encoder()
-        self.decoder = InverseMobileNetV2(self.input_size, self.z_dim)
+        self.decoder = InverseMobileNetV2(self.input_size[0], self.z_dim)
 
     def call(self, x):
         out = self.encoder(x)
@@ -113,14 +113,19 @@ class MobileNetAE(keras.Model):
         return out
 
     def _make_encoder(self):
-        back_input = keras.layers.Input(shape=self.input_size)
-        backbone = keras.applications.MobileNetV2(input_shape=self.input_size[0], alpha=1.0, include_top=False, weights=None)
-        backbone = backbone(back_input)
-        encoder = keras.layers.Flatten()(backbone)
-        encoder = self.fc(encoder)
-        encoder = keras.models.Model(back_input, encoder)
-        return encoder
+        # back_input = keras.layers.Input(shape=self.input_size)
+        backbone = keras.applications.MobileNetV2(input_shape=self.input_size, alpha=1.0, include_top=False, weights=None)
+        # backbone = backbone(back_input)
+        # encoder = keras.layers.Flatten()(backbone)
+        # encoder = self.fc(encoder)
+        # encoder = keras.models.Model(back_input, encoder)
+        return backbone
 
-    def build_graph(self):
-        x = keras.layers.Input(shape=(256, 256, 3))
-        return keras.models.Model(inputs=[x], outputs=self.call(x))
+
+ae = MobileNetAE((256, 256, 3), 99)
+temp = tf.random.normal(shape=(1, 256, 256, 3))
+out = ae(temp)
+print(out.shape)
+print(ae.summary())
+
+
