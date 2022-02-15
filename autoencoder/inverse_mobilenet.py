@@ -47,10 +47,11 @@ class DecoderBlock(keras.Model):
 
 # Decoder
 class InverseMobileNetV2(keras.Model):
-    def __init__(self, z_dim):
+    def __init__(self, input_size, z_dim):
         super(InverseMobileNetV2, self).__init__()
         self.z_dim = z_dim
-        self.fc = keras.layers.Dense(8 * 8 * 1280)
+        self.latent_dim = input_size // 2 ** 5
+        self.fc = keras.layers.Dense(self.latent_dim * self.latent_dim * 1280)
         self.relu = keras.layers.LeakyReLU(0.2)
         self.deconv1 = keras.layers.Conv2DTranspose(320, 1, use_bias=False)
         self.bn1 = keras.layers.BatchNormalization()
@@ -104,7 +105,7 @@ class MobileNetAE(keras.Model):
         self.z_dim = z_dim
         self.fc = keras.layers.Dense(z_dim)
         self.encoder = self._make_encoder()
-        self.decoder = InverseMobileNetV2(self.z_dim)
+        self.decoder = InverseMobileNetV2(self.input_size, self.z_dim)
 
     def call(self, x):
         out = self.encoder(x)
@@ -113,7 +114,7 @@ class MobileNetAE(keras.Model):
 
     def _make_encoder(self):
         back_input = keras.layers.Input(shape=self.input_size)
-        backbone = keras.applications.MobileNetV2(input_shape=self.input_size, alpha=1.0, include_top=False, weights=None)
+        backbone = keras.applications.MobileNetV2(input_shape=self.input_size[0], alpha=1.0, include_top=False, weights=None)
         backbone = backbone(back_input)
         encoder = keras.layers.Flatten()(backbone)
         encoder = self.fc(encoder)
