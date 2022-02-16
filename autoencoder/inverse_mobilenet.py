@@ -5,19 +5,19 @@ from tensorflow import keras
 # Decoder block
 # conv --> convtranspose --> conv
 class DecoderBlock(keras.Model):
-    def __init__(self, in_channels, out_channels, stride, expansion):
+    def __init__(self, in_channels, out_channels, stride):
         super(DecoderBlock, self).__init__()
         self.in_channels = in_channels
-        self.filters = in_channels * expansion
+        self.filters = in_channels // 4
         self.out_channels = out_channels
         self.relu = keras.layers.LeakyReLU(0.2)
         self.stride = stride
         self.conv1 = keras.layers.Conv2D(self.filters, kernel_size=1, padding='same', use_bias=False)
         self.bn1 = keras.layers.BatchNormalization()
         self.deconv = keras.layers.Conv2DTranspose(self.filters, kernel_size=3,
-                                                   padding='same', strides=self.stride,
+                                                   padding='same', strides=self.stride, activation='relu',
                                                    use_bias=False)
-        self.depth_conv = keras.layers.DepthwiseConv2D(kernel_size=3, padding='same', strides=self.stride,
+        self.depth_conv = keras.layers.DepthwiseConv2D(kernel_size=3, padding='same', strides=self.stride, activation='relu',
                                                        use_bias=False)
         self.bn2 = keras.layers.BatchNormalization()
         self.conv2 = keras.layers.Conv2D(out_channels, kernel_size=1, padding='same', use_bias=False)
@@ -73,26 +73,26 @@ class InverseMobileNetV2(keras.Model):
 
     def _make_blocks(self):
         config = [
-            [320, 160, 1, 6],
-            [160, 96, 2, 6],
-            [96, 96, 1, 6],
-            [96, 96, 1, 6],
-            [96, 64, 1, 6],
-            [64, 64, 1, 6],
-            [64, 64, 1, 6],
-            [64, 32, 2, 6],
-            [32, 32, 1, 6],
-            [32, 32, 1, 6],
-            [32, 32, 1, 6],
-            [32, 24, 2, 6],
-            [24, 24, 1, 6],
-            [24, 24, 1, 6],
-            [24, 16, 2, 6],
-            [16, 16, 1, 6],
-            [16, 32, 1, 1]
+            [320, 160, 1],
+            [160, 96, 2],
+            [96, 96, 1],
+            [96, 96, 1],
+            [96, 64, 1],
+            [64, 64, 1],
+            [64, 64, 1],
+            [64, 32, 2],
+            [32, 32, 1],
+            [32, 32, 1],
+            [32, 32, 1],
+            [32, 24, 2],
+            [24, 24, 1],
+            [24, 24, 1],
+            [24, 16, 2],
+            [16, 16, 1],
+            [16, 32, 1]
         ]
         blocks = keras.models.Sequential(
-            [DecoderBlock(i[0], i[1], i[2], i[3]) for i in config]
+            [DecoderBlock(i[0], i[1], i[2]) for i in config]
         )
         return blocks
 
