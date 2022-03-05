@@ -91,6 +91,8 @@ public class GalleryActivity extends AppCompatActivity {
                 Bitmap bitmap_canvas = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
                 Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
 
+                int imageSize = 256;  // imageSize to rescale landmark
+
                 //입력 이미지의 사이즈가 크기 때문에 이미지 뷰 영역에 맞춰줌
                 float newWidth = bitmap.getWidth();
                 float newHeight = bitmap.getHeight();
@@ -112,7 +114,7 @@ public class GalleryActivity extends AppCompatActivity {
                 Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG); //그림을 그릴 페인트 생성
                 paint.setColor(Color.CYAN); //점의 색 설정
                 for (int index = 0; index <= 15;) { //점 찍는 반복문
-                    tempCanvas.drawCircle(output[index], output[index+1], 4, paint);
+                    tempCanvas.drawCircle(output[index]*newWidth/imageSize, output[index+1]*newHeight/imageSize, 8, paint);
                     index = index + 2;
                 }
 
