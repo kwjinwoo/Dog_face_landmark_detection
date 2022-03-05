@@ -153,3 +153,5 @@ data/
 trained_ckpt/
 pre_trained/
 ckpt/
+/mobilenet/img/
+/autoencoder/ckpt/
