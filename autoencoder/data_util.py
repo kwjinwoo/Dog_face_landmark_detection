@@ -13,7 +13,7 @@ def tfrecord_reader(example):
 
 
 def image_resize(x):
-    x = tf.image.resize(x, [256, 256])
+    x = tf.image.resize(x, [224, 224])
     return x
 
 

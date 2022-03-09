@@ -1,6 +1,6 @@
 from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
-from tensorflow.keras.layers import Conv2D, Dropout, Dense, Conv2DTranspose, BatchNormalization, Flatten, concatenate, Reshape
-from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Conv2D, Dropout, Dense, Conv2DTranspose, BatchNormalization, Flatten, concatenate, Reshape, Input
+from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras import backend as K
 import numpy as np
 
@@ -11,7 +11,6 @@ class MobileNetV2_UNet:
         self.model = None
         self.input_shape = input_shape
         self.encoder_output_size = encoder_output_size
-
         if encoder_output_size is not None:
             self.encoder_last_layer_name = "latent-space-rep"
         else:
