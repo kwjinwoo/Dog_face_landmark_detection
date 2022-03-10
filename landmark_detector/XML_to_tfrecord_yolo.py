@@ -72,24 +72,28 @@ with tf.io.TFRecordWriter(save_path) as f:
         # 깨진 파일 거르기 + 객체 2개인거
         # image
         image_file = tf.io.decode_image(tf.io.read_file('./data/' + path)).numpy()
-        image_file = tf.image.resize(image_file, size=[256, 256])
+        image_file = tf.image.resize(image_file, size=[224, 224])
         image_file = tf.io.encode_jpeg(tf.cast(image_file, dtype=tf.uint8)).numpy()
         image_width = int(image['@width'])
         image_height = int(image['@height'])
 
-        image_box = image['box']
+        image_boxes = image['box']
+        output_grid = np.zeros(shape=(7, 7, (16 + 1 + num_classes)))
         try:
-            top = int(image_box['@top'])
-            left = int(image_box['@left'])
-            width = int(image_box['@width'])
-            height = int(image_box['@height'])
+            top = int(image_boxes['@top'])
+            left = int(image_boxes['@left'])
+            width = int(image_boxes['@width'])
+            height = int(image_boxes['@height'])
+            center_point = [width / 2, height / 2]
+            center_point = point_adjust(center_point, image_width, image_height)
+            center_in_cell = [int(center_point[0] / 32), int(center_point[1] / 32)]
             bb_box_list = [top, left, width, height]
             bb_box_list = point_adjust(bb_box_list, image_width, image_height)
 
             # 'head_top', 'lear_base', 'lear_tip', 'leye, 'nose', 'rear_base', 'rear_tip', 'reye'
             # x,y 순서
             landmark_list = []
-            for point in image_box['part']:
+            for point in image_boxes['part']:
                 x = int(point['@x'])
                 y = int(point['@y'])
                 landmark_list.extend([x, y])
@@ -109,6 +113,9 @@ with tf.io.TFRecordWriter(save_path) as f:
             f.write(record.SerializeToString())
             c += 1
         except TypeError as e:
+            for image_box in image_boxes:
+                pass
+
 
 
 
