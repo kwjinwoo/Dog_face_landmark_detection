@@ -84,7 +84,7 @@ with tf.io.TFRecordWriter(save_path) as f:
             left = int(image_boxes['@left'])
             width = int(image_boxes['@width'])
             height = int(image_boxes['@height'])
-            center_point = [width / 2, height / 2]
+            center_point = [left / 2, top / 2]
             center_point = point_adjust(center_point, image_width, image_height)
             center_in_cell = [int(center_point[0] / 32), int(center_point[1] / 32)]
             bb_box_list = [top, left, width, height]
@@ -98,6 +98,12 @@ with tf.io.TFRecordWriter(save_path) as f:
                 y = int(point['@y'])
                 landmark_list.extend([x, y])
             landmark_list = point_adjust(landmark_list, image_width, image_height)
+
+            ######################################################################################################
+            output_grid[center_in_cell[0]][center_in_cell[1]][:16] = landmark_list
+            output_grid[center_in_cell[0]][center_in_cell[1]][17] = 1.
+            output_grid[center_in_cell[0]][center_in_cell[1]][18:] = image_class
+            ######################################################################################################
 
             # record
             record = tf.train.Example(
