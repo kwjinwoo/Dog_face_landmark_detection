@@ -6,7 +6,7 @@ import numpy as np
 
 
 class MobileNetV2_UNet:
-    def __init__(self, input_shape=(256, 256, 3), encoder_output_size=None):
+    def __init__(self, input_shape=(224, 224, 3), encoder_output_size=None):
         super().__init__()
         self.model = None
         self.input_shape = input_shape
@@ -86,7 +86,7 @@ class MobileNetV2_UNet:
         c10 = Conv2D(nodes, (3, 3), activation='elu', kernel_initializer='he_normal', padding='same')(c10)
         c10 = BatchNormalization()(c10)
 
-        outputs = Conv2D(3, (1, 1), activation='sigmoid')(c10)
+        outputs = Conv2D(3, (1, 1), activation='tanh')(c10)
 
         self.model = Model(inputs=[inputs], outputs=[outputs])
         return self.model
