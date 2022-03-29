@@ -1,5 +1,6 @@
 import tensorflow as tf
 import glob
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 
 @tf.function
@@ -13,12 +14,12 @@ def tfrecord_reader(example):
 
 
 def image_resize(x):
-    x = tf.image.resize(x, [256, 256])
+    x = tf.image.resize(x, [224, 224])
     return x
 
 
 def image_scaling(x):
-    x = tf.cast(x, tf.float32) / 255.
+    x = preprocess_input(x)
     return x
 
 
