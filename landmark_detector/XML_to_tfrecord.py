@@ -73,7 +73,7 @@ with tf.io.TFRecordWriter(save_path) as f:
         try:
             # image
             image_file = tf.io.decode_image(tf.io.read_file('./data/' + path)).numpy()
-            image_file = tf.image.resize(image_file, size=[256, 256])
+            image_file = tf.image.resize(image_file, size=[224, 224])
             image_file = tf.io.encode_jpeg(tf.cast(image_file, dtype=tf.uint8)).numpy()
             image_width = int(image['@width'])
             image_height = int(image['@height'])
