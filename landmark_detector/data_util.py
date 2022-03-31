@@ -82,7 +82,7 @@ def get_cu_dataset(train_type='landmark', data_path='./data/cu_dataset.tfrecord'
 
 
 def image_resize(x, y):
-    x = tf.image.resize(x, size=[256, 256])
+    x = tf.image.resize(x, size=[224, 224])
     return x, y
 
 
