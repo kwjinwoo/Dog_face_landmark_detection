@@ -8,7 +8,7 @@ import numpy as np
 import random
 
 
-# 256기준 포인트 위치 변경
+# 224기준 포인트 위치 변경
 def point_adjust(parts, image_width, image_height):
     target_size = 224.0
     new_points = []
