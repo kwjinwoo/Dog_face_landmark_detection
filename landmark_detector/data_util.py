@@ -1,4 +1,5 @@
 import tensorflow as tf
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 
 @tf.function
@@ -86,6 +87,6 @@ def image_resize(x, y):
 
 
 def image_scaling(x, y):
-    x = tf.cast(x, tf.float32) / 255.
+    x = preprocess_input(x)
     return x, y
 
