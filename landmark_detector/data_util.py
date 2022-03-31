@@ -87,6 +87,6 @@ def image_resize(x, y):
 
 
 def image_scaling(x, y):
-    x = preprocess_input(x)
+    x = preprocess_input(tf.cast(x, dtype=tf.float32))
     return x, y
 
