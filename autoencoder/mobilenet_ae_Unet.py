@@ -1,5 +1,5 @@
 from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
-from tensorflow.keras.layers import Conv2D, Dropout, Dense, Conv2DTranspose, BatchNormalization, Flatten, concatenate, Reshape
+from tensorflow.keras.layers import Conv2D, Dropout, Dense, Conv2DTranspose, BatchNormalization, Flatten, concatenate, Reshape, ReLU
 from tensorflow.keras.models import Model
 from tensorflow.keras import backend as K
 import numpy as np
@@ -35,7 +35,8 @@ class MobileNetV2_UNet:
         # c1 = [layer for layer in mobileNet.layers if layer.name == 'Conv1'][0].output
 
         bottleneck = Conv2D(1280, 1, use_bias=False, padding='same')(c5)
-        c5 = BatchNormalization(name='encoder_last_layer')(bottleneck)
+        c5 = BatchNormalization()(bottleneck)
+        c5 = ReLU(6., name='encoder_last_layer')(c5)
         if self.encoder_output_size is not None:
             volumeSize = K.int_shape(c5)
             x = Flatten()(c5)
