@@ -115,6 +115,8 @@ public class GalleryActivity extends AppCompatActivity {
                 paint.setColor(Color.CYAN); //점의 색 설정
                 for (int index = 0; index <= 15;) { //점 찍는 반복문
                     tempCanvas.drawCircle(output[index]*newWidth/imageSize, output[index+1]*newHeight/imageSize, 8, paint);
+                    output[index] = output[index]*newWidth/imageSize;
+                    output[index+1] = output[index+1]*newWidth/imageSize;
                     index = index + 2;
                 }
 
