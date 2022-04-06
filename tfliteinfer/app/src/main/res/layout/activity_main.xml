@@ -1,23 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".MainActivity"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:background="#ED3249"
+    android:gravity="center"
+    android:theme="@style/Theme.AppCompat.NoActionBar">
+
+    <ImageView
+        android:src="@drawable/cori_logo"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:text="너와나의 연결 꼬리"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="-10dp"
+        android:layout_marginBottom="100dp"/>
 
     <Button
         android:id="@+id/galleryBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Gallery" />
+        android:layout_width="800px"
+        android:text="앨범으로 시작하기"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#5898CC"
+        android:background="@drawable/btn_rnd"
+        android:layout_height="170px"
+        android:layout_margin="30px"
+        />
 
     <Button
         android:id="@+id/cameraBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Camera" />
-
+        android:layout_width="800px"
+        android:text="카메라로 시작하기"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#5898CC"
+        android:background="@drawable/btn_rnd"
+        android:layout_height="170px"
+        />
 </LinearLayout>
