@@ -118,7 +118,7 @@ public class GalleryActivity extends AppCompatActivity {
                 for (int index = 0; index <= 15;) { //점 찍는 반복문
                     tempCanvas.drawCircle(output[index]*newWidth/imageSize, output[index+1]*newHeight/imageSize, 8, paint);
                     output[index] = output[index]*newWidth/imageSize;
-                    output[index+1] = output[index+1]*newWidth/imageSize;
+                    output[index+1] = output[index+1]*newHeight/imageSize;
                     index = index + 2;
                 }
 
@@ -131,17 +131,23 @@ public class GalleryActivity extends AppCompatActivity {
                 float right_y = output[7];
 
                 float dist = (float) (right_x - left_x);    // 두 눈 사이 거리 euclidean 으로
-                int width = (int) (dist*2.0);
-                int height = (int) (dist*0.5);
+                int width = (int) (dist*2.2);
+                int height = (int) (dist*0.6);
+
 //                int start_x = (int) (left_x+right_x)/2 - width/2;
 //                int start_y = (int) (left_y+right_y)/2 - height/2;
 
-                int start_x = (int) ((left_x+right_x)/2 - (right_x - left_x));
-                int start_y = (int) (((left_y+right_y)/2 - (right_x - left_x)/4));
+                int start_x = (int) ((left_x+right_x)/2 - width/2);
+                int start_y = (int) ((left_y+right_y)/2 - height/2);
 
 
                 paint.setColor(Color.RED);
                 tempCanvas.drawCircle(start_x, start_y, 8, paint);
+                tempCanvas.drawCircle(0, 0, 8, paint);
+                tempCanvas.drawCircle(left_x,left_y,8,paint);
+                tempCanvas.drawCircle(right_x,right_y,8,paint);
+
+
 
                 Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
                 Bitmap glasses2 = Bitmap.createScaledBitmap(glasses,width, height, false); //이미지 리사이징 실행코드
