@@ -9,10 +9,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tfliteinfer.stickermaker.StickerMaker;
 import com.example.tfliteinfer.tflite.ClassifierWithModel;
 
 import java.io.IOException;
@@ -32,6 +31,7 @@ public class GalleryActivity extends AppCompatActivity {
     public static final int GALLERY_IMAGE_REQUEST_CODE = 1;
 
     private ClassifierWithModel cls;
+    private StickerMaker stickermaker;
     private ImageView imageView;
     private TextView textView;
     private ImageView backimageView;
@@ -124,60 +124,15 @@ public class GalleryActivity extends AppCompatActivity {
                 }
 
 
-////////////////////////Sticker processing////////////////////////////////////
-
-                float left_x = output[14];
-                float left_y = output[15];
-                float right_x = output[6];
-                float right_y = output[7];
-
-//                float dist = (float) (right_x - left_x);    // naive distance
-                float dist = (float) Math.sqrt((right_x-left_x)*(right_x-left_x)+(right_y-left_y)*(right_y-left_y));     // euclidean distance
-                int width = (int) (dist*2.2);
-                int height = (int) (dist*0.6);
-
-//                int start_x = (int) (left_x+right_x)/2 - width/2;
-//                int start_y = (int) (left_y+right_y)/2 - height/2;
-
-                int start_x = (int) ((left_x+right_x)/2 - width/2);
-                int start_y = (int) ((left_y+right_y)/2 - height/2);
-
-
-
-
-
-                paint.setColor(Color.RED);
-                tempCanvas.drawCircle(start_x, start_y, 8, paint);
-                tempCanvas.drawCircle(0, 0, 8, paint);
-                tempCanvas.drawCircle(left_x,left_y,8,paint);
-                tempCanvas.drawCircle(right_x,right_y,8,paint);
-                tempCanvas.drawCircle((left_x+right_x)/2,(left_y+right_y)/2, 8, paint);
-
-
-
                 Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
-
-                Matrix matrix = new Matrix();
-                float rotation = (float) Math.atan2(right_y-left_y,right_x-left_x) * 180/(float)Math.PI; // rotation degree
-                matrix.postRotate(rotation,(left_x+right_x)/2, (left_y+right_y)/2);
-
-                Bitmap glasses2 = Bitmap.createScaledBitmap(glasses,width, height, false); //이미지 리사이징 실행코드
-
-                Bitmap rotatedGlasses = Bitmap.createBitmap(glasses2, 0, 0, glasses2.getWidth(), glasses2.getHeight(), matrix, true);
-                int w = Math.abs(rotatedGlasses.getWidth() - width);
-                int h = Math.abs(rotatedGlasses.getHeight() - height);
-
-                start_x -= (int) w / 2;
-                start_y -= (int) h / 2;
-
-//                Bitmap glasses3 = glasses2.copy(Bitmap.Config.ARGB_8888, false);
-//                rotation
-                tempCanvas.drawBitmap(rotatedGlasses, (int) start_x, (int) start_y, null);
+                StickerMaker skm = new StickerMaker();
+                skm.stickermaker(tempCanvas, glasses, output, paint);
 
 
 
 
 
+////////////////////////Sticker processing////////////////////////////////////
 
 
 
