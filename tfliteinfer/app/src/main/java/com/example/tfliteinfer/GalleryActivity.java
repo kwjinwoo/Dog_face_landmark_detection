@@ -124,7 +124,7 @@ public class GalleryActivity extends AppCompatActivity {
                 }
 
 
-                Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
+                Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.railensunglass);
                 StickerMaker skm = new StickerMaker();
                 skm.stickermaker(tempCanvas, glasses, output, paint);
 

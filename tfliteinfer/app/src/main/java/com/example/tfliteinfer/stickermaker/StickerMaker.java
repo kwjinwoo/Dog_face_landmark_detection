@@ -14,11 +14,11 @@ import org.tensorflow.lite.support.model.Model;
 import java.io.IOException;
 
 public class StickerMaker {
-
-    public void init() {
-
+    public void init(float [] output) {
     }
-
+//    private void heapter_glass() {
+//
+//    }
     public void stickermaker(Canvas tempCanvas, Bitmap sticker, float[] output, Paint paint) {
 
 
