@@ -31,7 +31,7 @@ public class GalleryActivity extends AppCompatActivity {
     public static final int GALLERY_IMAGE_REQUEST_CODE = 1;
 
     private ClassifierWithModel cls;
-    private StickerMaker stickermaker;
+    private StickerMaker skm;
     private ImageView imageView;
     private TextView textView;
     private ImageView backimageView;
@@ -40,7 +40,7 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-
+        getImageFromGallery();
         Button selectBtn = findViewById(R.id.selectBtn);
         selectBtn.setOnClickListener(v -> getImageFromGallery());
 
@@ -123,22 +123,9 @@ public class GalleryActivity extends AppCompatActivity {
                     index = index + 2;
                 }
 
-
                 Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
-                StickerMaker skm = new StickerMaker();
+                skm = new StickerMaker();
                 skm.stickermaker(tempCanvas, glasses, output, paint);
-
-
-
-
-
-////////////////////////Sticker processing////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////
-
-
 
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력

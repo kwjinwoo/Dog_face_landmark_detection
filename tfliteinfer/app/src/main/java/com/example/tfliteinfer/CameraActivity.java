@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.example.tfliteinfer.stickermaker.StickerMaker;
 import com.example.tfliteinfer.tflite.ClassifierWithModel;
 
 import java.io.File;
@@ -35,6 +36,7 @@ public class CameraActivity extends AppCompatActivity {
     private static final String KEY_SELECTED_URI = "KEY_SELECTED_URI";
 
     private ClassifierWithModel cls;
+    private StickerMaker skm;
     private ImageView imageView;
     private TextView textView;
 
@@ -44,7 +46,7 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
+        getImageFromCamera();
         Button takeBtn = findViewById(R.id.takeBtn);
         takeBtn.setOnClickListener(v -> getImageFromCamera());
 
@@ -140,41 +142,9 @@ public class CameraActivity extends AppCompatActivity {
                 }
 
 
-                ////////////////////////Sticker processing////////////////////////////////////
-
-                float left_x = output[14];
-                float left_y = output[15];
-                float right_x = output[6];
-                float right_y = output[7];
-
-                float dist = (float) (right_x - left_x);    // 두 눈 사이 거리 euclidean 으로
-                int width = (int) (dist*2.2);
-                int height = (int) (dist*0.6);
-
-//                int start_x = (int) (left_x+right_x)/2 - width/2;
-//                int start_y = (int) (left_y+right_y)/2 - height/2;
-
-                int start_x = (int) ((left_x+right_x)/2 - width/2);
-                int start_y = (int) ((left_y+right_y)/2 - height/2);
-
-
-                paint.setColor(Color.RED);
-                tempCanvas.drawCircle(start_x, start_y, 8, paint);
-                tempCanvas.drawCircle(0, 0, 8, paint);
-                tempCanvas.drawCircle(left_x,left_y,8,paint);
-                tempCanvas.drawCircle(right_x,right_y,8,paint);
-
-
-
                 Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
-                Bitmap glasses2 = Bitmap.createScaledBitmap(glasses,width, height, false); //이미지 리사이징 실행코드
-//                Bitmap glasses3 = glasses2.copy(Bitmap.Config.ARGB_8888, false);
-//                rotation
-                tempCanvas.drawBitmap(glasses2, (int) start_x, (int) start_y, null);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+                skm = new StickerMaker();
+                skm.stickermaker(tempCanvas, glasses, output, paint);
 
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
