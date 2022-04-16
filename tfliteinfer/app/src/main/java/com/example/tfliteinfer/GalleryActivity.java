@@ -125,8 +125,8 @@ public class GalleryActivity extends AppCompatActivity {
                     index = index + 2;
                 }
 
-                Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
-                skm = new StickerMaker();
+                Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.railensunglass);
+                StickerMaker skm = new StickerMaker();
                 skm.stickermaker(tempCanvas, glasses, output, paint);
 //                imageView.set
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
