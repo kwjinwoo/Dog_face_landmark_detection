@@ -31,7 +31,7 @@ public class GalleryActivity extends AppCompatActivity {
     public static final int GALLERY_IMAGE_REQUEST_CODE = 1;
 
     private ClassifierWithModel cls;
-    private StickerMaker stickermaker;
+    private StickerMaker skm;
     private ImageView imageView;
     private TextView textView;
     private ImageView backimageView;
@@ -40,7 +40,7 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-
+        getImageFromGallery();
         Button selectBtn = findViewById(R.id.selectBtn);
         selectBtn.setOnClickListener(v -> getImageFromGallery());
 
@@ -91,8 +91,8 @@ public class GalleryActivity extends AppCompatActivity {
                 float[] output = cls.classify(bitmap); //모델 추론코드
 
 //                내가 수정한 부분
-                Bitmap bitmap_canvas = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
-                Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
+//                Bitmap bitmap_canvas = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
+//                Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
 
                 int imageSize = 256;  // imageSize to rescale landmark
 
@@ -111,6 +111,8 @@ public class GalleryActivity extends AppCompatActivity {
                         newWidth = (newHeight/tempHeight)*newWidth;
                     }
                 }
+                Bitmap bitmap_canvas = Bitmap.createBitmap((int) newWidth,(int) newHeight, Bitmap.Config.ARGB_8888);
+                Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap,(int) newWidth, (int) newHeight, false); //이미지 리사이징 실행코드
                 Bitmap targetBmp = resizedBitmap.copy(Bitmap.Config.ARGB_8888, false); //위 비트맵 이미지를 그냥 넣으면 오류떠서 오류 해결코드
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
@@ -123,23 +125,10 @@ public class GalleryActivity extends AppCompatActivity {
                     index = index + 2;
                 }
 
-
                 Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.railensunglass);
                 StickerMaker skm = new StickerMaker();
                 skm.stickermaker(tempCanvas, glasses, output, paint);
-
-
-
-
-
-////////////////////////Sticker processing////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////
-
-
-
+//                imageView.set
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
 //                끝
