@@ -132,9 +132,9 @@ public class CameraActivity extends AppCompatActivity {
                 Bitmap targetBmp = resizedBitmap.copy(Bitmap.Config.ARGB_8888, false); //위 비트맵 이미지를 그냥 넣으면 오류떠서 오류 해결코드
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
                 Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG); //그림을 그릴 페인트 생성
-                paint.setColor(Color.CYAN); //점의 색 설정
+//                paint.setColor(Color.CYAN); //점의 색 설정
                 for (int index = 0; index <= 15;) { //점 찍는 반복문
-                    tempCanvas.drawCircle(output[index]*newWidth/imageSize, output[index+1]*newHeight/imageSize, 8, paint);
+//                    tempCanvas.drawCircle(output[index]*newWidth/imageSize, output[index+1]*newHeight/imageSize, 8, paint);
                     output[index] = output[index]*newWidth/imageSize;
                     output[index+1] = output[index+1]*newHeight/imageSize;
                     index = index + 2;
@@ -143,11 +143,10 @@ public class CameraActivity extends AppCompatActivity {
 
                 Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
                 skm = new StickerMaker();
-                skm.stickermaker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint);
 
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
-//                끝
 //                String resultStr = String.format(Locale.ENGLISH,
 //                        "class : %s, prob : %.2f%%",
 //                        output.first, output.second * 100);

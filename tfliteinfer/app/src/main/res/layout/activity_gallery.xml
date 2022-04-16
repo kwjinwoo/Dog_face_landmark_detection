@@ -42,6 +42,19 @@
 
 
     <ImageView
+        android:id="@+id/backimageView"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerInside"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toplayer"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0px"
@@ -54,87 +67,62 @@
         app:layout_constraintTop_toBottomOf="@+id/toplayer"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
-    <Button
-        android:id="@+id/aliensun"
+    <ImageButton
+        android:id="@+id/aliensunglass"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/btn_rndb"
+        android:src="@drawable/icon_ailen_i"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"></ImageButton>
+
+    <ImageButton
+        android:id="@+id/railensunglass"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="270px"
         android:layout_height="270px"
         android:background="@drawable/btn_rndb"
-        android:drawableLeft="@drawable/icon_ailen_i"
-        android:gravity="center"
-        android:padding="22dp"
-        android:text="사진 선택"
+        android:src="@drawable/icon_ralien_i"
+        app:layout_constraintEnd_toStartOf="@+id/bdaysunglass"
+        app:layout_constraintStart_toEndOf="@+id/aliensunglass"
+        app:layout_constraintTop_toTopOf="@+id/aliensunglass"></ImageButton>
 
-        android:textColor="@color/white"
-        android:textSize="50px"
-        app:layout_constraintEnd_toEndOf="@+id/leonsun"
-        app:layout_constraintStart_toStartOf="@+id/leonsun"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"></Button>
-
-    <Button
-        android:id="@+id/raliensun"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="270px"
-        android:layout_height="270px"
-        android:layout_margin="20dp"
-        android:background="@drawable/btn_rndb"
-        android:drawableLeft="@drawable/icon_ralien_i"
-        android:gravity="center"
-        android:padding="22dp"
-        android:text="사진 선택"
-        android:textColor="@color/white"
-        android:textSize="50px"
-        app:layout_constraintBottom_toBottomOf="@+id/aliensun"
-        app:layout_constraintEnd_toEndOf="@+id/bitsun"
-        app:layout_constraintStart_toEndOf="@+id/aliensun"
-        app:layout_constraintTop_toTopOf="@+id/aliensun"></Button>
-
-    <Button
-        android:id="@+id/bdaysun"
+    <ImageButton
+        android:id="@+id/bdaysunglass"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="270px"
         android:layout_height="270px"
         android:background="@drawable/btn_rndb"
-        android:drawableLeft="@drawable/icon_bday_i"
-        android:gravity="center"
-        android:padding="24dp"
-        android:text="사진 선택"
-        android:textColor="@color/white"
-        android:textSize="50px"
-        app:layout_constraintBottom_toBottomOf="@+id/raliensun"
-        app:layout_constraintEnd_toEndOf="@+id/selectBtn"
-        app:layout_constraintTop_toTopOf="@+id/raliensun"
-        app:layout_constraintVertical_bias="1.0"></Button>
+        android:src="@drawable/icon_bday_i"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/aliensunglass"></ImageButton>
 
-    <Button
-        android:id="@+id/bitsun"
+    <ImageButton
+        android:id="@+id/bitsunglass"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="270px"
         android:layout_height="270px"
         android:background="@drawable/btn_rndb"
-        android:drawableLeft="@drawable/icon_bit_i"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="사진 선택"
-        android:textColor="@color/white"
-        android:textSize="50px"
-        app:layout_constraintBottom_toBottomOf="@+id/leonsun"
-        app:layout_constraintStart_toEndOf="@+id/leonsun"></Button>
+        android:src="@drawable/icon_bit_i"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aliensunglass"></ImageButton>
 
-    <Button
-        android:id="@+id/leonsun"
+    <ImageButton
+        android:id="@+id/leonsunglass"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="270px"
         android:layout_height="270px"
         android:background="@drawable/btn_rndb"
-        android:drawableLeft="@drawable/icon_leon_i"
-        android:gravity="center"
-        android:padding="24dp"
-        android:text="사진 선택"
-        android:textColor="@color/white"
-        android:textSize="50px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aliensun"></Button>
+        android:src="@drawable/icon_leon_i"
+        app:layout_constraintEnd_toStartOf="@+id/selectBtn"
+        app:layout_constraintStart_toEndOf="@+id/bitsunglass"
+        app:layout_constraintTop_toTopOf="@+id/bitsunglass"></ImageButton>
 
     <Button
         android:id="@+id/selectBtn"
@@ -142,13 +130,12 @@
         android:layout_width="270px"
         android:layout_height="270px"
         android:background="@drawable/btn_rndb"
-        android:gravity="center"
-        android:padding="24dp"
-        android:text="사진 선택"
-        android:textColor="@color/white"
-        android:textSize="50px"
-        app:layout_constraintBottom_toBottomOf="@+id/bitsun"
-        app:layout_constraintStart_toEndOf="@+id/bitsun"></Button>
+        android:text="다른사진 선택"
+        android:textColor="@color/black"
+        android:textSize="40px"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bitsunglass"></Button>
 
     <TextView
         android:id="@+id/textView"

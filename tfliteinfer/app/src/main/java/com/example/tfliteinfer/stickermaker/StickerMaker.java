@@ -19,9 +19,7 @@ public class StickerMaker {
 //    private void heapter_glass() {
 //
 //    }
-    public void stickermaker(Canvas tempCanvas, Bitmap sticker, float[] output, Paint paint) {
-
-
+    public void make_sticker(Canvas tempCanvas, Bitmap sticker, float[] output, Paint paint) {
         float left_x = output[14];
         float left_y = output[15];
         float right_x = output[6];
@@ -31,26 +29,17 @@ public class StickerMaker {
         float dist = (float) Math.sqrt((right_x-left_x)*(right_x-left_x)+(right_y-left_y)*(right_y-left_y));     // euclidean distance
         int width = (int) (dist*2.2);
         int height = (int) (dist*0.6);
-
 //                int start_x = (int) (left_x+right_x)/2 - width/2;
 //                int start_y = (int) (left_y+right_y)/2 - height/2;
-
         int start_x = (int) ((left_x+right_x)/2 - width/2);
         int start_y = (int) ((left_y+right_y)/2 - height/2);
 
-
-
-
-
-        paint.setColor(Color.RED);
-        tempCanvas.drawCircle(start_x, start_y, 8, paint);
-        tempCanvas.drawCircle(0, 0, 8, paint);
-        tempCanvas.drawCircle(left_x,left_y,8,paint);
-        tempCanvas.drawCircle(right_x,right_y,8,paint);
-        tempCanvas.drawCircle((left_x+right_x)/2,(left_y+right_y)/2, 8, paint);
-
-
-
+//        paint.setColor(Color.RED);
+//        tempCanvas.drawCircle(start_x, start_y, 8, paint);
+//        tempCanvas.drawCircle(0, 0, 8, paint);
+//        tempCanvas.drawCircle(left_x,left_y,8,paint);
+//        tempCanvas.drawCircle(right_x,right_y,8,paint);
+//        tempCanvas.drawCircle((left_x+right_x)/2,(left_y+right_y)/2, 8, paint);
 
         Matrix matrix = new Matrix();
         float rotation = (float) Math.atan2(right_y-left_y,right_x-left_x) * 180/(float)Math.PI; // rotation degree
@@ -68,14 +57,6 @@ public class StickerMaker {
 //                Bitmap glasses3 = glasses2.copy(Bitmap.Config.ARGB_8888, false);
 //                rotation
         tempCanvas.drawBitmap(rotatedGlasses, (int) start_x, (int) start_y, null);
-
-
-
-
-
-
-
 //        return tempCanvas;
     }
-
 }
