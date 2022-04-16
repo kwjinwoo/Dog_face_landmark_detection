@@ -151,6 +151,7 @@ public class GalleryActivity extends AppCompatActivity {
                 tempCanvas.drawCircle(0, 0, 8, paint);
                 tempCanvas.drawCircle(left_x,left_y,8,paint);
                 tempCanvas.drawCircle(right_x,right_y,8,paint);
+                tempCanvas.drawCircle((left_x+right_x)/2,(left_y+right_y)/2, 8, paint);
 
 
 
@@ -158,11 +159,16 @@ public class GalleryActivity extends AppCompatActivity {
 
                 Matrix matrix = new Matrix();
                 float rotation = (float) Math.atan2(right_y-left_y,right_x-left_x) * 180/(float)Math.PI; // rotation degree
-                matrix.postRotate(rotation,width/2, height/2);
+                matrix.postRotate(rotation,(left_x+right_x)/2, (left_y+right_y)/2);
 
                 Bitmap glasses2 = Bitmap.createScaledBitmap(glasses,width, height, false); //이미지 리사이징 실행코드
 
                 Bitmap rotatedGlasses = Bitmap.createBitmap(glasses2, 0, 0, glasses2.getWidth(), glasses2.getHeight(), matrix, true);
+                int w = Math.abs(rotatedGlasses.getWidth() - width);
+                int h = Math.abs(rotatedGlasses.getHeight() - height);
+
+                start_x -= (int) w / 2;
+                start_y -= (int) h / 2;
 
 //                Bitmap glasses3 = glasses2.copy(Bitmap.Config.ARGB_8888, false);
 //                rotation
