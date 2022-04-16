@@ -12,42 +12,35 @@
         android:layout_height="120px"
         android:gravity="center"
         tools:ignore="MissingConstraints">
+
         <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="340px"
             android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:textSize="50px"
             android:layout_gravity="center"
             android:text="취소"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            >
-        </Button>
+            android:textColor="@color/black"
+            android:textSize="50px"></Button>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="60px"
-            android:textColor="#5898CC"
             android:layout_marginHorizontal="15px"
-            android:textSize="55px"
-            android:text="CORI / AZZIT"/>
+            android:text="CORI / AZZIT"
+            android:textColor="#5898CC"
+            android:textSize="55px" />
 
         <Button
             android:id="@+id/nextbtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="340px"
             android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:textSize="50px"
             android:text="다음"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            >
-        </Button>
+            android:textColor="@color/black"
+            android:textSize="50px"></Button>
     </LinearLayout>
 
-    <!--    <ImageView-->
-<!--        android:id="@+id/backimageView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintDimensionRatio="1:1"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -63,34 +56,130 @@
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <Button
-        android:id="@+id/selectBtn"
-        android:gravity="center"
-        android:layout_width="340px"
-        android:layout_height="340px"
-        android:background="@drawable/btn_red"
-        android:textColor="@color/white"
-        android:textSize="50px"
-        android:text="사진 선택"
+        android:id="@+id/aliensun"
         style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:layout_margin="20dp"
         android:layout_marginHorizontal="370px"
         android:layout_marginVertical="300px"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="3dp"
+        android:background="@drawable/btn_rndb"
+        android:drawableLeft="@drawable/icon_ailen_i"
+        android:gravity="center"
+        android:padding="22dp"
+        android:text="사진 선택"
+        android:textColor="@color/white"
+
+        android:textSize="50px"
+        app:layout_constraintEnd_toEndOf="@+id/leonsun"
+        app:layout_constraintStart_toStartOf="@+id/leonsun"
+        tools:layout_editor_absoluteY="474dp"></Button>
+
+    <Button
+        android:id="@+id/raliensun"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:layout_margin="20dp"
+        android:layout_marginHorizontal="370px"
+        android:layout_marginVertical="300px"
+        android:background="@drawable/btn_rndb"
+        android:drawableLeft="@drawable/icon_ralien_i"
+        android:gravity="center"
+        android:padding="22dp"
+        android:text="사진 선택"
+        android:textColor="@color/white"
+        android:textSize="50px"
+        app:layout_constraintBottom_toBottomOf="@+id/aliensun"
+        app:layout_constraintEnd_toEndOf="@+id/bitsun"
+        app:layout_constraintStart_toStartOf="@+id/bitsun"
+        app:layout_constraintTop_toTopOf="@+id/aliensun"></Button>
+
+    <Button
+        android:id="@+id/bdaysun"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:layout_margin="20dp"
+        android:layout_marginHorizontal="370px"
+        android:layout_marginVertical="300px"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/btn_rndb"
+        android:drawableLeft="@drawable/icon_bday_i"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="사진 선택"
+        android:textColor="@color/white"
+        android:textSize="50px"
+        app:layout_constraintBottom_toBottomOf="@+id/raliensun"
         app:layout_constraintEnd_toEndOf="parent"
-        >
-    </Button>
+        app:layout_constraintTop_toTopOf="@+id/raliensun"></Button>
+
+    <Button
+        android:id="@+id/bitsun"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:layout_marginHorizontal="370px"
+        android:layout_marginVertical="300px"
+        android:background="@drawable/btn_rndb"
+        android:drawableLeft="@drawable/icon_bit_i"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="사진 선택"
+        android:textColor="@color/white"
+        android:textSize="50px"
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="598dp"></Button>
+
+    <Button
+        android:id="@+id/leonsun"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:layout_marginHorizontal="370px"
+        android:layout_marginVertical="300px"
+        android:background="@drawable/btn_rndb"
+        android:drawableLeft="@drawable/icon_leon_i"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="사진 선택"
+        android:textColor="@color/white"
+        android:textSize="50px"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="598dp"></Button>
+
+    <Button
+        android:id="@+id/empty"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:layout_marginHorizontal="370px"
+        android:layout_marginVertical="300px"
+        android:background="@drawable/btn_rndb"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="사진 선택"
+        android:textColor="@color/white"
+        android:textSize="50px"
+        tools:layout_editor_absoluteX="288dp"
+        tools:layout_editor_absoluteY="598dp"></Button>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Result"
-        app:layout_constraintTop_toBottomOf="@id/selectBtn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
