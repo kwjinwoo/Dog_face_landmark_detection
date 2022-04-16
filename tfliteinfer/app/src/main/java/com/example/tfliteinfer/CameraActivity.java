@@ -107,9 +107,6 @@ public class CameraActivity extends AppCompatActivity {
             if(bitmap != null) {
                 float[] output = cls.classify(bitmap);
 
-                Bitmap bitmap_canvas = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
-                Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
-
                 int imageSize = 256;  // imageSize to rescale landmark
 
                 //입력 이미지의 사이즈가 크기 때문에 이미지 뷰 영역에 맞춰줌
@@ -128,6 +125,8 @@ public class CameraActivity extends AppCompatActivity {
                         newWidth = (newHeight/tempHeight)*newWidth;
                     }
                 }
+                Bitmap bitmap_canvas = Bitmap.createBitmap((int) newWidth,(int) newHeight, Bitmap.Config.ARGB_8888);
+                Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap,(int) newWidth, (int) newHeight, false); //이미지 리사이징 실행코드
                 Log.d(TAG, "onActivityResult 리사이징 된 크기"+ Float.toString(newWidth) + " 이랑 " + Float.toString(newHeight));
                 Bitmap targetBmp = resizedBitmap.copy(Bitmap.Config.ARGB_8888, false); //위 비트맵 이미지를 그냥 넣으면 오류떠서 오류 해결코드

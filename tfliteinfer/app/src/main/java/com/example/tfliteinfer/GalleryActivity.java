@@ -111,7 +111,7 @@ public class GalleryActivity extends AppCompatActivity {
                         newWidth = (newHeight/tempHeight)*newWidth;
                     }
                 }
-                Bitmap bitmap_canvas = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
+                Bitmap bitmap_canvas = Bitmap.createBitmap((int) newWidth,(int) newHeight, Bitmap.Config.ARGB_8888);
                 Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap,(int) newWidth, (int) newHeight, false); //이미지 리사이징 실행코드
                 Bitmap targetBmp = resizedBitmap.copy(Bitmap.Config.ARGB_8888, false); //위 비트맵 이미지를 그냥 넣으면 오류떠서 오류 해결코드
