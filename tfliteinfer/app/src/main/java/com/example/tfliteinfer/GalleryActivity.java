@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -130,7 +131,8 @@ public class GalleryActivity extends AppCompatActivity {
                 float right_x = output[6];
                 float right_y = output[7];
 
-                float dist = (float) (right_x - left_x);    // 두 눈 사이 거리 euclidean 으로
+//                float dist = (float) (right_x - left_x);    // naive distance
+                float dist = (float) Math.sqrt((right_x-left_x)*(right_x-left_x)+(right_y-left_y)*(right_y-left_y));     // euclidean distance
                 int width = (int) (dist*2.2);
                 int height = (int) (dist*0.6);
 
@@ -139,6 +141,9 @@ public class GalleryActivity extends AppCompatActivity {
 
                 int start_x = (int) ((left_x+right_x)/2 - width/2);
                 int start_y = (int) ((left_y+right_y)/2 - height/2);
+
+
+
 
 
                 paint.setColor(Color.RED);
@@ -150,13 +155,27 @@ public class GalleryActivity extends AppCompatActivity {
 
 
                 Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
+
+                Matrix matrix = new Matrix();
+                float rotation = (float) Math.atan2(right_y-left_y,right_x-left_x) * 180/(float)Math.PI; // rotation degree
+                matrix.postRotate(rotation,width/2, height/2);
+
                 Bitmap glasses2 = Bitmap.createScaledBitmap(glasses,width, height, false); //이미지 리사이징 실행코드
+
+                Bitmap rotatedGlasses = Bitmap.createBitmap(glasses2, 0, 0, glasses2.getWidth(), glasses2.getHeight(), matrix, true);
+
 //                Bitmap glasses3 = glasses2.copy(Bitmap.Config.ARGB_8888, false);
 //                rotation
-                tempCanvas.drawBitmap(glasses2, (int) start_x, (int) start_y, null);
+                tempCanvas.drawBitmap(rotatedGlasses, (int) start_x, (int) start_y, null);
+
+
+
+
+
+
+
 
 ////////////////////////////////////////////////////////////
-
 
 
 
