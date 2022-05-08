@@ -31,12 +31,12 @@
             android:text="CORI / AZZIT"/>
 
         <Button
-            android:id="@+id/nextbtn"
+            android:id="@+id/savebtn"
             android:layout_width="340px"
             android:layout_height="match_parent"
             android:textColor="@color/black"
             android:textSize="50px"
-            android:text="다음"
+            android:text="저장"
             style="@style/Widget.AppCompat.Button.Borderless"
             >
         </Button>

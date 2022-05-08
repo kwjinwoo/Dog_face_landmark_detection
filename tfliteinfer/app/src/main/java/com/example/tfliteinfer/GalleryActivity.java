@@ -1,10 +1,13 @@
 package com.example.tfliteinfer;
 
 import static java.lang.Integer.*;
+import static java.sql.DriverManager.println;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,12 +15,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -25,14 +30,20 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tfliteinfer.stickermaker.StickerMaker;
 import com.example.tfliteinfer.tflite.ClassifierWithModel;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 public class GalleryActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = "[IC]GalleryActivity";
@@ -157,6 +168,8 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
                 skm.make_sticker(tempCanvas, glasses, output, paint);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
 //                textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
+                Button savebtn = findViewById(R.id.savebtn);
+                savebtn.setOnClickListener(v -> skm.saveBitmaptoJpeg(bitmap_canvas, this));
             }
         }
     }

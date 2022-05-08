@@ -146,13 +146,10 @@ public class CameraActivity extends AppCompatActivity {
                 skm.make_sticker(tempCanvas, glasses, output, paint);
 
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
-                textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
-//                String resultStr = String.format(Locale.ENGLISH,
-//                        "class : %s, prob : %.2f%%",
-//                        output.first, output.second * 100);
-
-//                imageView.setImageBitmap(bitmap);
-//                textView.setText(output);
+//                textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
+                Button savebtn = findViewById(R.id.savebtn);
+                savebtn.setOnClickListener(v -> skm.saveBitmaptoJpeg(bitmap_canvas, this));
+//                skm.saveBitmaptoJpeg(bitmap_canvas, this);
             }
 
         }

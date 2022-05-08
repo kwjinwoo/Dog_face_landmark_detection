@@ -1,17 +1,28 @@
 package com.example.tfliteinfer.stickermaker;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.tfliteinfer.R;
 
 import org.tensorflow.lite.support.model.Model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class StickerMaker {
     public void init(float [] output) {
@@ -58,5 +69,44 @@ public class StickerMaker {
 //                rotation
         tempCanvas.drawBitmap(rotatedGlasses, (int) start_x, (int) start_y, null);
 //        return tempCanvas;
+    }
+
+    public void saveBitmaptoJpeg(Bitmap bitmap, Context context) {
+//        Log.d(TAG, "dddddddddsaveBitmaptoJpeg: "+name);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd-hhmmss");
+        FileOutputStream out = null;
+        String saveDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()+ "/azzit";
+        File uploadFolder = new File(saveDir);
+//        File uploadFolder = Environment.getExternalStoragePublicDirectory("/DCIM/azzit");
+        if (!uploadFolder.exists()) { //만약 경로에 폴더가 없다면
+            uploadFolder.mkdirs(); //폴더 생성
+        }
+        String filename = "azzit_"+ simpleDateFormat.format(new Date()) + ".png";
+        File temp_file = new File(saveDir, filename);
+        try {
+            out = new FileOutputStream(temp_file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+            Toast.makeText(context.getApplicationContext(), "사진이 저장되었어요.", Toast.LENGTH_SHORT).show();
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri contentUri = Uri.fromFile(temp_file);
+            mediaScanIntent.setData(contentUri);
+            context.sendBroadcast(mediaScanIntent);
+        } catch (FileNotFoundException e) {
+            //e.printStackTrace()
+//                renameFile(bitmap, Str_Path, title);
+            Toast.makeText(context.getApplicationContext(), "사진이 저장되지 않았어요.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(context.getApplicationContext(), "사진이 저장되지 않았어요.", Toast.LENGTH_SHORT).show();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

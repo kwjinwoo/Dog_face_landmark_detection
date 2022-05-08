@@ -31,11 +31,11 @@
             android:textSize="55px" />
 
         <Button
-            android:id="@+id/nextbtn"
+            android:id="@+id/savebtn"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="340px"
             android:layout_height="match_parent"
-            android:text="다음"
+            android:text="저장"
             android:textColor="@color/black"
             android:textSize="50px"></Button>
     </LinearLayout>
