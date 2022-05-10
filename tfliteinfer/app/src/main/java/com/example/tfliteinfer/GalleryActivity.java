@@ -62,6 +62,8 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
     public Paint paint;
     public Bitmap bitmap_canvas;
     public Canvas stikerCanvas;
+    public Bitmap targetBmp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,8 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
         backimageView = findViewById(R.id.backimageView);
         textView = findViewById(R.id.textView);
         ids = getResources().getStringArray(R.array.sticker_id);
+        Button savebtn = findViewById(R.id.savebtn);
+        savebtn.setOnClickListener(v -> skm.saveBitmaptoJpeg(bitmap_canvas, this));
         cls = new ClassifierWithModel(this);
         try {
             cls.init();
@@ -142,7 +146,7 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
                 bitmap_canvas = Bitmap.createBitmap((int) newWidth,(int) newHeight, Bitmap.Config.ARGB_8888);
                 tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap,(int) newWidth, (int) newHeight, false); //이미지 리사이징 실행코드
-                Bitmap targetBmp = resizedBitmap.copy(Bitmap.Config.ARGB_8888, false); //위 비트맵 이미지를 그냥 넣으면 오류떠서 오류 해결코드
+                targetBmp = resizedBitmap.copy(Bitmap.Config.ARGB_8888, false); //위 비트맵 이미지를 그냥 넣으면 오류떠서 오류 해결코드
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
                 paint = new Paint(Paint.ANTI_ALIAS_FLAG); //그림을 그릴 페인트 생성
 //                paint.setColor(Color.CYAN); //점의 색 설정
@@ -158,6 +162,10 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
                 btn2.setOnClickListener(this);
                 ImageButton btn3 = (ImageButton) findViewById(R.id.bdaysunglass);
                 btn3.setOnClickListener(this);
+                ImageButton btn4 = (ImageButton) findViewById(R.id.aliensunglass);
+                btn4.setOnClickListener(this);
+                ImageButton btn5 = (ImageButton) findViewById(R.id.leonsunglass);
+                btn5.setOnClickListener(this);
 //                for (int i = 0; i < ids.length; i++) {
 //                    Rids.add(Integer.parseInt("R.id."+ids[i]));
 //                    ImageButton btn = (ImageButton) findViewById(Rids.get(i));
@@ -168,8 +176,6 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
                 skm.make_sticker(tempCanvas, glasses, output, paint);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
 //                textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
-                Button savebtn = findViewById(R.id.savebtn);
-                savebtn.setOnClickListener(v -> skm.saveBitmaptoJpeg(bitmap_canvas, this));
             }
         }
     }
@@ -186,18 +192,35 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.railensunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.railensunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
                 skm.make_sticker(tempCanvas, glasses, output, paint);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.bitsunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
                 skm.make_sticker(tempCanvas, glasses, output, paint);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.bdaysunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bdaysunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
+                skm.make_sticker(tempCanvas, glasses, output, paint);
+                imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
+                break;
+            case R.id.aliensunglass:
+                glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ailensunglass);
+                tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
+                skm.make_sticker(tempCanvas, glasses, output, paint);
+                imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
+                break;
+            case R.id.leonsunglass:
+                glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.leonsunglass);
+                tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
                 skm.make_sticker(tempCanvas, glasses, output, paint);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;

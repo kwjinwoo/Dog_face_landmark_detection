@@ -68,11 +68,10 @@ public class StickerMaker {
 //                Bitmap glasses3 = glasses2.copy(Bitmap.Config.ARGB_8888, false);
 //                rotation
         tempCanvas.drawBitmap(rotatedGlasses, (int) start_x, (int) start_y, null);
-//        return tempCanvas;
+//        return bitmap_canvas;
     }
 
     public void saveBitmaptoJpeg(Bitmap bitmap, Context context) {
-//        Log.d(TAG, "dddddddddsaveBitmaptoJpeg: "+name);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd-hhmmss");
         FileOutputStream out = null;
         String saveDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()+ "/azzit";
@@ -86,6 +85,7 @@ public class StickerMaker {
         try {
             out = new FileOutputStream(temp_file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+//            tempCanvas.save();
             Toast.makeText(context.getApplicationContext(), "사진이 저장되었어요.", Toast.LENGTH_SHORT).show();
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             Uri contentUri = Uri.fromFile(temp_file);

@@ -39,6 +39,8 @@ public class CameraActivity extends AppCompatActivity {
     private StickerMaker skm;
     private ImageView imageView;
     private TextView textView;
+    public Bitmap bitmap_canvas;
+
 
     Uri selectedImageUri;
 
@@ -125,7 +127,7 @@ public class CameraActivity extends AppCompatActivity {
                         newWidth = (newHeight/tempHeight)*newWidth;
                     }
                 }
-                Bitmap bitmap_canvas = Bitmap.createBitmap((int) newWidth,(int) newHeight, Bitmap.Config.ARGB_8888);
+                bitmap_canvas = Bitmap.createBitmap((int) newWidth,(int) newHeight, Bitmap.Config.ARGB_8888);
                 Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap,(int) newWidth, (int) newHeight, false); //이미지 리사이징 실행코드
                 Log.d(TAG, "onActivityResult 리사이징 된 크기"+ Float.toString(newWidth) + " 이랑 " + Float.toString(newHeight));
