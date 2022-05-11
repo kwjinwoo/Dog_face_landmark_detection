@@ -155,7 +155,7 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
 //                }
                 skm = new StickerMaker();
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 0.6);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
 //                textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
             }
@@ -174,19 +174,19 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.railensunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.railensunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 1.0);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.bitsunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 0.6);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.bdaysunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bdaysunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 1.0);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             default:
