@@ -109,7 +109,9 @@ public class CameraActivity extends AppCompatActivity {
             if(bitmap != null) {
                 float[] output = cls.classify(bitmap);
 
-                int imageSize = 256;  // imageSize to rescale landmark
+//                int imageSize = 256;  // imageSize to rescale landmark
+                int imageSize = 224;  // imageSize to rescale landmark
+
 
                 //입력 이미지의 사이즈가 크기 때문에 이미지 뷰 영역에 맞춰줌
                 float newWidth = bitmap.getWidth();
@@ -145,7 +147,7 @@ public class CameraActivity extends AppCompatActivity {
 
                 Bitmap glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
                 skm = new StickerMaker();
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 0.6);
 
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
 //                textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력

@@ -30,7 +30,8 @@ public class StickerMaker {
 //    private void heapter_glass() {
 //
 //    }
-    public void make_sticker(Canvas tempCanvas, Bitmap sticker, float[] output, Paint paint) {
+    public void make_sticker(Canvas tempCanvas, Bitmap sticker, float[] output, Paint paint, double height_ratio) {
+
         float left_x = output[14];
         float left_y = output[15];
         float right_x = output[6];
@@ -39,7 +40,7 @@ public class StickerMaker {
 //                float dist = (float) (right_x - left_x);    // naive distance
         float dist = (float) Math.sqrt((right_x-left_x)*(right_x-left_x)+(right_y-left_y)*(right_y-left_y));     // euclidean distance
         int width = (int) (dist*2.2);
-        int height = (int) (dist*0.6);
+        int height = (int) (dist*height_ratio);
 //                int start_x = (int) (left_x+right_x)/2 - width/2;
 //                int start_y = (int) (left_y+right_y)/2 - height/2;
         int start_x = (int) ((left_x+right_x)/2 - width/2);
