@@ -28,6 +28,7 @@ import androidx.core.content.FileProvider;
 
 import com.example.azzit.stickermaker.StickerMaker;
 import com.example.azzit.tflite.ClassifierWithModel;
+import com.example.tfliteinfer.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -221,7 +222,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bdaysunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
-                skm.make_sticker(tempCanvas, glasses, output, paint,1);
+                skm.make_sticker(tempCanvas, glasses, output, paint,1.4);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.aliensunglass:
