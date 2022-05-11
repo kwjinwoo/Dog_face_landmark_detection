@@ -27,7 +27,11 @@ import static org.tensorflow.lite.support.image.ops.ResizeOp.ResizeMethod.NEARES
 
 public class ClassifierWithModel{
 //    private static final String MODEL_NAME = "mobilenet_imagenet_model.tflite";
-    private static final String MODEL_NAME = "dogmodel.tflite";
+//    private static final String MODEL_NAME = "dogmodel.tflite";
+    private static final String MODEL_NAME = "converted_model_quant_224.tflite";
+
+    //change model-> should change imagesize in CameraActivity and GalleryActivity
+
     private static final String LABEL_FILE = "labels.txt";
 
     Context context;

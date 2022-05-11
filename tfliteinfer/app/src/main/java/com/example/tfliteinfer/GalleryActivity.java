@@ -111,7 +111,8 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
 //                Bitmap bitmap_canvas = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
 //                Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
 
-                int imageSize = 256;  // imageSize to rescale landmark
+//                int imageSize = 256;  // imageSize to rescale landmark
+                int imageSize = 224;  // imageSize to rescale landmark
 
                 //입력 이미지의 사이즈가 크기 때문에 이미지 뷰 영역에 맞춰줌
                 float newWidth = bitmap.getWidth();

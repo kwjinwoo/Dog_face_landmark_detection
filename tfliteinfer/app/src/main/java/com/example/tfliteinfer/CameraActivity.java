@@ -107,7 +107,9 @@ public class CameraActivity extends AppCompatActivity {
             if(bitmap != null) {
                 float[] output = cls.classify(bitmap);
 
-                int imageSize = 256;  // imageSize to rescale landmark
+//                int imageSize = 256;  // imageSize to rescale landmark
+                int imageSize = 224;  // imageSize to rescale landmark
+
 
                 //입력 이미지의 사이즈가 크기 때문에 이미지 뷰 영역에 맞춰줌
                 float newWidth = bitmap.getWidth();
