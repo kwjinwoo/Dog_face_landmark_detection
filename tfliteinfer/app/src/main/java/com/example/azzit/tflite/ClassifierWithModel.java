@@ -1,6 +1,6 @@
-package com.example.tfliteinfer.tflite;
+package com.example.azzit.tflite;
 
-import static com.example.tfliteinfer.GalleryActivity.TAG;
+import static com.example.azzit.GalleryActivity.TAG;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,7 +9,6 @@ import android.util.Pair;
 import android.util.Size;
 
 import org.tensorflow.lite.Tensor;
-import org.tensorflow.lite.support.common.FileUtil;
 import org.tensorflow.lite.support.common.ops.NormalizeOp;
 import org.tensorflow.lite.support.image.ImageProcessor;
 import org.tensorflow.lite.support.image.TensorImage;
@@ -20,7 +19,6 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.tensorflow.lite.support.image.ops.ResizeOp.ResizeMethod.NEAREST_NEIGHBOR;

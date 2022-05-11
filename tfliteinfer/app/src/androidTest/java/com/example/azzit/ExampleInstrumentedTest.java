@@ -1,4 +1,4 @@
-package com.example.tfliteinfer;
+package com.example.azzit;
 
 import android.content.Context;
 

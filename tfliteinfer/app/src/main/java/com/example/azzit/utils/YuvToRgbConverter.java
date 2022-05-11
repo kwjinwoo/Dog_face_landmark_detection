@@ -1,4 +1,4 @@
-package com.example.tfliteinfer.utils;
+package com.example.azzit.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

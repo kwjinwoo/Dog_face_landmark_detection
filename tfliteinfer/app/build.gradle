@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.tfliteinfer"
+        applicationId "com.example.azzit"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

@@ -1,6 +1,4 @@
-package com.example.tfliteinfer;
-
-import static java.lang.Integer.*;
+package com.example.azzit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.ImageDecoder;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -25,20 +22,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.tfliteinfer.stickermaker.StickerMaker;
-import com.example.tfliteinfer.tflite.ClassifierWithModel;
+import com.example.azzit.stickermaker.StickerMaker;
+import com.example.azzit.tflite.ClassifierWithModel;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.text.SimpleDateFormat;
 
 public class GalleryActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String TAG = "[IC]GalleryActivity";
@@ -66,10 +56,21 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
         getImageFromGallery();
         Button selectBtn = findViewById(R.id.selectBtn);
         selectBtn.setOnClickListener(v -> getImageFromGallery());
-
+        findViewById(R.id.backbtn).setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+        });
+        ImageButton btn = (ImageButton) findViewById(R.id.railensunglass);
+        btn.setOnClickListener(this);
+        ImageButton btn2 = (ImageButton) findViewById(R.id.bitsunglass);
+        btn2.setOnClickListener(this);
+        ImageButton btn3 = (ImageButton) findViewById(R.id.bdaysunglass);
+        btn3.setOnClickListener(this);
+        ImageButton btn4 = (ImageButton) findViewById(R.id.aliensunglass);
+        btn4.setOnClickListener(this);
+        ImageButton btn5 = (ImageButton) findViewById(R.id.leonsunglass);
+        btn5.setOnClickListener(this);
         imageView = findViewById(R.id.imageView);
-        backimageView = findViewById(R.id.backimageView);
-        textView = findViewById(R.id.textView);
         ids = getResources().getStringArray(R.array.sticker_id);
         Button savebtn = findViewById(R.id.savebtn);
         savebtn.setOnClickListener(v -> skm.saveBitmaptoJpeg(bitmap_canvas, this));
@@ -116,7 +117,7 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
 
             if(bitmap != null) {
                 output = cls.classify(bitmap); //모델 추론코드
-                backimageView.setImageBitmap(bitmap);
+//                backimageView.setImageBitmap(bitmap);
 //                내가 수정한 부분
 //                Bitmap bitmap_canvas = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
 //                Canvas tempCanvas = new Canvas(bitmap_canvas); //그림 넣을 캔버스 만들기
@@ -152,21 +153,11 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
                     output[index+1] = output[index+1]*newHeight/imageSize;
                     index = index + 2;
                 }
-                ImageButton btn = (ImageButton) findViewById(R.id.railensunglass);
-                btn.setOnClickListener(this);
-                ImageButton btn2 = (ImageButton) findViewById(R.id.bitsunglass);
-                btn2.setOnClickListener(this);
-                ImageButton btn3 = (ImageButton) findViewById(R.id.bdaysunglass);
-                btn3.setOnClickListener(this);
-                ImageButton btn4 = (ImageButton) findViewById(R.id.aliensunglass);
-                btn4.setOnClickListener(this);
-                ImageButton btn5 = (ImageButton) findViewById(R.id.leonsunglass);
-                btn5.setOnClickListener(this);
 //                for (int i = 0; i < ids.length; i++) {
 //                    Rids.add(Integer.parseInt("R.id."+ids[i]));
 //                    ImageButton btn = (ImageButton) findViewById(Rids.get(i));
 //                    btn.setOnClickListener(this);
-//                }
+//
                 skm = new StickerMaker();
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
                 skm.make_sticker(tempCanvas, glasses, output, paint, 0.6);
@@ -189,35 +180,35 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.railensunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 1);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.bitsunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bitsunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 0.6);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.bdaysunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bdaysunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint,1);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.aliensunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ailensunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 1);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.leonsunglass:
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.leonsunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
-                skm.make_sticker(tempCanvas, glasses, output, paint);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 0.8);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             default:

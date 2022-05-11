@@ -1,4 +1,4 @@
-package com.example.tfliteinfer.tflite;
+package com.example.azzit.tflite;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
