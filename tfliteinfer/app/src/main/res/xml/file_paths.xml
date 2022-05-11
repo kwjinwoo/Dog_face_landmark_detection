@@ -2,6 +2,6 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path
         name="images"
-        path="Android/data/com.example.tfliteinfer/files/Pictures"
+        path="Android/data/com.example.azzit/files/Pictures"
         />
 </paths>

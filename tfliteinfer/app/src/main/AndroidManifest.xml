@@ -14,10 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.example.azzit.CameraActivity"
-            android:parentActivityName="com.example.azzit.MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.example.azzit.GalleryActivity"
-            android:parentActivityName="com.example.azzit.MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.example.azzit.MainActivity">
             <intent-filter>
