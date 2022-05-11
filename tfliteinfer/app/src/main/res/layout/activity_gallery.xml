@@ -27,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"></Button>
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15px"
@@ -35,15 +36,23 @@
             android:textColor="#5898CC"
             android:textSize="55px"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/savebtn"
-            app:layout_constraintHorizontal_bias="0.489"
-            app:layout_constraintStart_toEndOf="@+id/backbtn"
+            app:layout_constraintEnd_toEndOf="@+id/savebtn"
+            app:layout_constraintStart_toStartOf="@+id/backbtn"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/sharebtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="170px"
+            android:layout_height="match_parent"
+            android:text="공유"
+            android:textSize="50px"
+            app:layout_constraintEnd_toStartOf="@+id/savebtn"></Button>
 
         <Button
             android:id="@+id/savebtn"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="340px"
+            android:layout_width="170px"
             android:layout_height="match_parent"
             android:text="저장"
             android:textColor="@color/black"

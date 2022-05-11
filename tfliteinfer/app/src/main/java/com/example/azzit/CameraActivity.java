@@ -68,7 +68,19 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         });
-
+        findViewById(R.id.sharebtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmap_canvas != null) {
+                    String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap_canvas, "title", null); //이미지를 insert하고
+                    Uri bitmapUri = Uri.parse(bitmapPath);//경로를 통해서 Uri를 만들어서
+                    Intent intent = new Intent(Intent.ACTION_SEND); //전송 인텐트를 만들고
+                    intent.setType("image/*");//image형태로
+                    intent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
+                    startActivity(Intent.createChooser(intent, "스티커 사진 보내기"));
+                }
+            }
+        });
         imageView = findViewById(R.id.imageView);
         Button savebtn = findViewById(R.id.savebtn);
         savebtn.setOnClickListener(v -> skm.saveBitmaptoJpeg(bitmap_canvas, this));

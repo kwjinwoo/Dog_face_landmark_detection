@@ -60,20 +60,28 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         });
-        ImageButton btn = (ImageButton) findViewById(R.id.railensunglass);
-        btn.setOnClickListener(this);
-        ImageButton btn2 = (ImageButton) findViewById(R.id.bitsunglass);
-        btn2.setOnClickListener(this);
-        ImageButton btn3 = (ImageButton) findViewById(R.id.bdaysunglass);
-        btn3.setOnClickListener(this);
-        ImageButton btn4 = (ImageButton) findViewById(R.id.aliensunglass);
-        btn4.setOnClickListener(this);
-        ImageButton btn5 = (ImageButton) findViewById(R.id.leonsunglass);
-        btn5.setOnClickListener(this);
+        findViewById(R.id.railensunglass).setOnClickListener(this);
+        findViewById(R.id.bitsunglass).setOnClickListener(this);
+        findViewById(R.id.bdaysunglass).setOnClickListener(this);
+        findViewById(R.id.aliensunglass).setOnClickListener(this);
+        findViewById(R.id.leonsunglass).setOnClickListener(this);
         imageView = findViewById(R.id.imageView);
         ids = getResources().getStringArray(R.array.sticker_id);
         Button savebtn = findViewById(R.id.savebtn);
         savebtn.setOnClickListener(v -> skm.saveBitmaptoJpeg(bitmap_canvas, this));
+        findViewById(R.id.sharebtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bitmap_canvas != null) {
+                    String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap_canvas, "title", null); //이미지를 insert하고
+                    Uri bitmapUri = Uri.parse(bitmapPath);//경로를 통해서 Uri를 만들어서
+                    Intent intent = new Intent(Intent.ACTION_SEND); //전송 인텐트를 만들고
+                    intent.setType("image/*");//image형태로
+                    intent.putExtra(Intent.EXTRA_STREAM, bitmapUri);
+                    startActivity(Intent.createChooser(intent, "스티커 사진 보내기"));
+                }
+            }
+        });
         cls = new ClassifierWithModel(this);
         try {
             cls.init();
