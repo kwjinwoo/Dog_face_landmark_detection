@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string-array name="sticker_id">
+        <item>ailensunglass</item>
+        <item>railensunglass</item>
+        <item>bdaysunglass</item>
+        <item>bitsunglass</item>
+        <item>leonsunglass</item>
+    </string-array>
+</resources>

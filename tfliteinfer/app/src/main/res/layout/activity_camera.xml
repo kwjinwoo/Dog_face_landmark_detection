@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CameraActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toplayer"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:gravity="center_vertical"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/backbtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="340px"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="뒤로가기"
+            android:textColor="@color/black"
+            android:textSize="50px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></Button>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15px"
+            android:text="AZZIT"
+            android:textAlignment="center"
+            android:textColor="#5898CC"
+            android:textSize="55px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/savebtn"
+            app:layout_constraintStart_toStartOf="@+id/backbtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/sharebtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="170px"
+            android:layout_height="match_parent"
+            android:text="공유"
+            android:textSize="50px"
+            app:layout_constraintEnd_toStartOf="@+id/savebtn"></Button>
+        <Button
+            android:id="@+id/savebtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="170px"
+            android:layout_height="match_parent"
+            android:text="저장"
+            android:textColor="@color/black"
+            android:textSize="50px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerInside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toBottomOf="@+id/toplayer"/>
+
+    <ImageButton
+        android:id="@+id/aliensunglass"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/btn_rndb"
+        android:src="@drawable/icon_ailen_i"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"></ImageButton>
+
+    <ImageButton
+        android:id="@+id/railensunglass"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:background="@drawable/btn_rndb"
+        android:src="@drawable/icon_ralien_i"
+        app:layout_constraintEnd_toStartOf="@+id/bdaysunglass"
+        app:layout_constraintStart_toEndOf="@+id/aliensunglass"
+        app:layout_constraintTop_toTopOf="@+id/aliensunglass"></ImageButton>
+
+    <ImageButton
+        android:id="@+id/bdaysunglass"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:background="@drawable/btn_rndb"
+        android:src="@drawable/icon_bday_i"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/aliensunglass"></ImageButton>
+
+    <ImageButton
+        android:id="@+id/bitsunglass"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:background="@drawable/btn_rndb"
+        android:src="@drawable/icon_bit_i"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aliensunglass"></ImageButton>
+
+    <ImageButton
+        android:id="@+id/leonsunglass"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:background="@drawable/btn_rndb"
+        android:src="@drawable/icon_leon_i"
+        app:layout_constraintEnd_toStartOf="@+id/takeBtn"
+        app:layout_constraintStart_toEndOf="@+id/bitsunglass"
+        app:layout_constraintTop_toTopOf="@+id/bitsunglass"></ImageButton>
+
+    <Button
+        android:id="@+id/takeBtn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="270px"
+        android:layout_height="270px"
+        android:background="@drawable/btn_rndb"
+        android:text="다시 찍기"
+        android:textColor="@color/black"
+        android:textSize="40px"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bitsunglass"></Button>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
