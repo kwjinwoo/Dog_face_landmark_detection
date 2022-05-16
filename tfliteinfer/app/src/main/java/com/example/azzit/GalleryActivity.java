@@ -17,11 +17,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.azzit.stickermaker.StickerMaker;
 import com.example.azzit.tflite.ClassifierWithModel;
@@ -52,6 +54,8 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         getImageFromGallery();
@@ -125,7 +129,14 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
             }
 
             if(bitmap != null) {
+
+                long start, end; // 서버에서 가져오는 시간 측정
+                start = System.currentTimeMillis();
                 output = cls.classify(bitmap); //모델 추론코드
+                end = System.currentTimeMillis();
+                System.out.println("get JSONData Time :" + (end - start)/1000.0);
+
+
 //                backimageView.setImageBitmap(bitmap);
 //                내가 수정한 부분
 //                Bitmap bitmap_canvas = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight(), Bitmap.Config.ARGB_8888);
@@ -173,6 +184,9 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
 //                textView.setText(Arrays.toString(output)); //모델 추론 결과값 확인을 위한 텍스트 출력
             }
+        }
+        else if (resultCode == RESULT_CANCELED){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
     }
 

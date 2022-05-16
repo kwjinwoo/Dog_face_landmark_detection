@@ -193,6 +193,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
             }
 
         }
+        else if (resultCode == RESULT_CANCELED){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        }
     }
 
     @Override
