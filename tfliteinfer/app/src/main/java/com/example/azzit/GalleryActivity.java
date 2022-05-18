@@ -186,7 +186,10 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
         else if (resultCode == RESULT_CANCELED){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            GalleryActivity.this.finish();
         }
     }
 
