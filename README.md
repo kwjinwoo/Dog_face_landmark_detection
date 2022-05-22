@@ -3,7 +3,6 @@
 지도교수 : 이상민 교수님   
 연계 회사 : (주) 꼬리
 ## 프로젝트 개요    
-___
 
 ![overview](./images/project_overview.png)
   * 모델   
@@ -19,7 +18,6 @@ ___
     * android 애플리케이션 개발
     * adroid studio 사용
 ## 모델 학습
-___
 
   -  CU-Dataset을 이용한 모델 학습
   -  8개의 Landmark point를 regression
@@ -29,7 +27,6 @@ ___
      ![loss](./images/loss_comp.jpg)
      <!-- ![loss](./images/imagenet_losscomp.jpg) -->
 ## 애플리케이션 구현
-___
 
   - 각도 조절
     - ![angle](./images/app_funcflow.jpg)
