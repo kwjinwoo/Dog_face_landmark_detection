@@ -30,9 +30,11 @@
   -  8개의 Landmark point를 regression
   -  성능 향상을 위해 종 분류를 추가해, multi-task learning 기법 사용
      ![model structure](./images/model_structer.jpg)
+     ![model seq](./images/model_seq.png)
+
+
   - 학습 결과 \
-     ![loss](./images/loss_comp.jpg)
-     <!-- ![loss](./images/imagenet_losscomp.jpg) -->
+     ![loss](./images/loss_comp.jpg)     
 ## 애플리케이션 구현
 
   - 각도 조절
