@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
@@ -29,7 +28,6 @@ import androidx.core.content.FileProvider;
 
 import com.example.azzit.stickermaker.StickerMaker;
 import com.example.azzit.tflite.ClassifierWithModel;
-import com.example.azzit.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -212,10 +210,10 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.railensunglass:
-                glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.railensunglass);
+                glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.raliensunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
-                skm.make_sticker(tempCanvas, glasses, output, paint, 1.4);
+                skm.make_sticker(tempCanvas, glasses, output, paint, 1.6);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.bitsunglass:
@@ -229,11 +227,11 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
                 glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.bdaysunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
-                skm.make_sticker(tempCanvas, glasses, output, paint,1.4);
+                skm.make_sticker(tempCanvas, glasses, output, paint,2.0);
                 imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap_canvas)); //입력이미지와 점을 이미지 뷰에 그려줌
                 break;
             case R.id.aliensunglass:
-                glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ailensunglass);
+                glasses = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.aliensunglass);
                 tempCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 tempCanvas.drawBitmap(targetBmp, 0, 0, null); //캔버스에 입력 이미지를 넣음
                 skm.make_sticker(tempCanvas, glasses, output, paint, 1.4);
