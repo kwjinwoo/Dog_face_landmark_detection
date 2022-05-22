@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
@@ -194,7 +195,10 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
         }
         else if (resultCode == RESULT_CANCELED){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            CameraActivity.this.finish();
         }
     }
 
