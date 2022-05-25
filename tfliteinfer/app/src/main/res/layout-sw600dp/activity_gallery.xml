@@ -9,52 +9,53 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toplayer"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:gravity="center_vertical"
         tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/backbtn"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:text="뒤로가기"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></Button>
 
         <ImageView
             android:id="@+id/textView"
-            android:layout_width="70sp"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_only_logo"
             android:textAlignment="center"
             android:textColor="#5898CC"
+            android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/savebtn"
             app:layout_constraintStart_toStartOf="@+id/backbtn"
-            app:layout_constraintTop_toTopOf="parent"  />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/sharebtn"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="60dp"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:text="공유"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/savebtn"></Button>
 
         <Button
             android:id="@+id/savebtn"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="60dp"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:text="저장"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"></Button>
@@ -75,11 +76,10 @@
 
     <ImageButton
         android:id="@+id/aliensunglass"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="70dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="90dp"
         android:src="@drawable/icon_ailen_i"
         android:background="@drawable/btn_rndb"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,9 +88,8 @@
     <ImageButton
         android:id="@+id/railensunglass"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:background="@drawable/btn_rndb"
         android:src="@drawable/icon_ralien_i"
         android:clickable="true"
@@ -101,24 +100,22 @@
     <ImageButton
         android:id="@+id/bdaysunglass"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:background="@drawable/btn_rndb"
         android:src="@drawable/icon_bday_i"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/aliensunglass"></ImageButton>
 
     <ImageButton
         android:id="@+id/bitsunglass"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:background="@drawable/btn_rndb"
         android:src="@drawable/icon_bit_i"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aliensunglass"></ImageButton>
@@ -126,9 +123,8 @@
     <ImageButton
         android:id="@+id/leonsunglass"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:background="@drawable/btn_rndb"
         android:src="@drawable/icon_leon_i"
         app:layout_constraintEnd_toStartOf="@+id/selectBtn"
@@ -138,14 +134,13 @@
     <Button
         android:id="@+id/selectBtn"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:background="@drawable/btn_rndb"
         android:text="다른사진 선택"
         android:textColor="@color/black"
-        android:textSize="13sp"
-        android:layout_marginRight="30dp"
+        android:textSize="17sp"
+        android:layout_marginRight="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bitsunglass"></Button>
 

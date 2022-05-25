@@ -17,7 +17,8 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.example.azzit.GalleryActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.example.azzit.MainActivity">
+        <activity android:name="com.example.azzit.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
