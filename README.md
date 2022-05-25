@@ -2,7 +2,7 @@
 
 <p align="center"><img src="./images/azzit_logo.svg" style="width: 200px"></p><br>
 
-- 😁 AZZIT 팀 : 광운대학교 정보융합학부 정진우, 김종민, 이주완, 최지욱   
+- 😁 광운대학교 정보융합학부 AZZIT 팀 : 정진우, 김종민, 이주완, 최지욱   
 - 지도교수 : 이상민 교수님   
 - 연계 회사 : (주) 꼬리 
 
