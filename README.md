@@ -8,7 +8,7 @@
 
 ## 프로젝트 개요    
 
-![overview](./images/project_overview.png)
+![overview](./images/project_overview.jpg)
   * 모델   
     - mobilenetV2 기반의 Landmark Detection model
     - Imagenet에 Pretrained된 weight 사용
